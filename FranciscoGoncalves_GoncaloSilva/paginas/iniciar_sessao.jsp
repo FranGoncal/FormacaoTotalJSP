@@ -1,69 +1,68 @@
+<%@	include	file="../basedados/basedados.h"%>
 
-
-<%@ page import="java.sql.*" %>
-<%@ page import="java.io.*, java.security.*" %>
-<%@ page import="javax.servlet.*, javax.servlet.http.*" %>
-
-<%@ page import="java.sql.*" %>
-<%@ page import="java.io.*, java.security.*" %>
-<%@ page import="javax.servlet.*, javax.servlet.http.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page language="java" import="java.sql.*" %>
+<%@ page import="java.io.*" %>
+<%@ page import="java.security.*" %>
+<%@ page import="javax.servlet.*" %>
+<%@ page import="javax.servlet.http.*" %>
+<%@ page import="java.sql.PreparedStatement" %>
 
 <%
     String username = request.getParameter("username");
     String password = request.getParameter("palavra_passe");
     
     if (request.getParameter("submit") != null) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
+        String sql = null;
         
         try {
-            // Estabelecer conexão com o banco de dados
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/seu_banco_de_dados", "seu_usuario", "sua_senha");
-
-            String sql = "SELECT nivel FROM utilizador WHERE username = ? AND palavra_passe = ?";
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, username);
-            stmt.setString(2, password); // Use Apache Commons Codec para fazer o hash MD5
-
-            rs = stmt.executeQuery();
+            sql = "SELECT nivel FROM utilizador WHERE username = '"+username+"' AND palavra_passe = md5('"+password+"')";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
 
             if (rs.next()) {
                 String nivel = rs.getString("nivel");
-
-                // Configurar a sessão
-                //HttpSession session = request.getSession();
-                session.setAttribute("username", username);
-                session.setAttribute("nivel", nivel);
-
-                // Redirecionar com base no nível de acesso
-                if ("aluno".equals(nivel)) {
+                if (nivel.equals("aluno")) {
                     response.sendRedirect("pagina_inicial.jsp");
-                } else if ("admin".equals(nivel) || "docente".equals(nivel)) {
+                } else if (nivel.equals("admin") || nivel.equals("docente")) {
                     response.sendRedirect("pagina_inicial_adm.jsp");
-                } else if ("pendente".equals(nivel)) {
-                    out.println("<script>alert('A sua conta ainda não foi validada. Tente mais tarde!'); window.location.href = 'logout.jsp';</script>");
-                } else if ("apagado".equals(nivel)) {
-                    out.println("<script>alert('A sua conta foi apagada!'); window.location.href = 'logout.jsp';</script>");
+                } else if (nivel.equals("pendente")) {
+                    out.println("<script>");
+                    out.println("if(confirm('A sua conta ainda não foi validada. Tente mais tarde!')) {");
+                    out.println("window.location.href = 'logout.jsp';");
+                    out.println("}");
+                    out.println("</script>");
+                } else if (nivel.equals("apagado")) {
+                    out.println("<script>");
+                    out.println("if(confirm('A sua conta foi apagada!')) {");
+                    out.println("window.location.href = 'logout.jsp';");
+                    out.println("}");
+                    out.println("</script>");
                 } else {
-                    out.println("<script>alert('Este acesso não foi autorizado!'); window.location.href = 'logout.jsp';</script>");
+                    out.println("<script>");
+                    out.println("if(confirm('Este acesso não foi autorizado!')) {");
+                    out.println("window.location.href = 'logout.jsp';");
+                    out.println("}");
+                    out.println("</script>");
                 }
             } else {
                 out.println("<script>alert('Credenciais incorretas! :(');</script>");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            out.println("<script>alert('Erro ao obter os dados do utilizador! :(');</script>");
             e.printStackTrace();
         } finally {
-            // Fechar conexões
-            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-            if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
-            if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 %>
-
-
 
 <!DOCTYPE html>
 <html lang="pt-br">

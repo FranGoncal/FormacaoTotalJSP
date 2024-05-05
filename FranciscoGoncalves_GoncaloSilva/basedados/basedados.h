@@ -1,20 +1,13 @@
-<?php
-	define("USER_BD","root");
-	define("PASS_BD","");
-	define("NOME_BD","formacao_total");
-	$hostname_conn = "localhost";
-	
-	// Conectamos ao nosso servidor MySQL
-	if(!($conn = mysqli_connect($hostname_conn, USER_BD, PASS_BD))) 
-	{
-	   echo "Erro ao conectar ao MySQL.";
-	   exit;
+<%@ page  language="java" import="java.sql.*" %>
+<%
+	Connection conn = null;
+	try{
+		//Ligar á base de dados criar_bd
+		Class.forName("com.mysql.cj.jdbc.Driver").newInstance(); 
+		String jdbcURL="jdbc:mysql://localhost:3306/formacao_total";
+		conn = DriverManager.getConnection(jdbcURL,"root", "");
+	}catch(Exception e){
+		//Caso não seja possivel
+		out.println("Não foi possível conectar à base de dados! " + e.getMessage());  
 	}
-	// Selecionamos nossa base de dados MySQL
-	if(!($con = mysqli_select_db($conn, NOME_BD))) 
-	{
-	   echo "Erro ao selecionar ao MySQL.";
-	   exit;
-	}
-
-?>
+%>
