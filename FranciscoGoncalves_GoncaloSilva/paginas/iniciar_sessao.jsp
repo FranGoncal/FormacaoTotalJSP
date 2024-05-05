@@ -24,6 +24,10 @@
 
             if (rs.next()) {
                 String nivel = rs.getString("nivel");
+
+                session.setAttribute( "nivel", nivel );
+                session.setAttribute( "username", username );
+
                 if (nivel.equals("aluno")) {
                     response.sendRedirect("pagina_inicial.jsp");
                 } else if (nivel.equals("admin") || nivel.equals("docente")) {
