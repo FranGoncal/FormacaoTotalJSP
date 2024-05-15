@@ -35,8 +35,14 @@
         if(p_confirmar.equals(password)){
             
             if(usernameValido(username,conn)){
-                String sql = "INSERT INTO utilizador (username, palavra_passe, nome, data_nasc, nivel) VALUES (?,?,?,?,?)";
+                String sql = "INSERT INTO utilizador (username, palavra_passe, nome, data_nasc, nivel) VALUES (?,md5(?),?,?,?)";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
+
+                //Para evitar desformatação de caracteres especiais para dentro da BD
+                username = new String(username.getBytes("ISO-8859-1"), "UTF-8");
+                password = new String(password.getBytes("ISO-8859-1"), "UTF-8");
+                nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
+
                 pstmt.setString(1, username);
                 pstmt.setString(2, password);
                 pstmt.setString(3, nome);

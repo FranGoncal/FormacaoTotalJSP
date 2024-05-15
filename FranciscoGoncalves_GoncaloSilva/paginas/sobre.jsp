@@ -18,7 +18,6 @@
         <% 
             // Validação de que a sessão está iniciada, caso não esteja, damos o valor do nível vazio.
             String nivel = (String) session.getAttribute("nivel");
-            out.println("<script>alert('"+nivel+"');</script>");
             if (nivel == null || nivel.equals("aluno")) {
         %>
         <!-- Se o nível for aluno, redireciona para a página inicial do aluno -->
