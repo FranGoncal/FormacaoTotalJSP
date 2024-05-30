@@ -111,7 +111,7 @@
                             if (!searchSubmitted) {
                                 sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax FROM formacao f LEFT JOIN inscricao i ON f.nome = i.nome AND i.estado='aceite'";
                             } else if (optionChecked) {
-                                sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax FROM formacao f LEFT JOIN inscricao i ON f.nome = i.nome WHERE f.nome LIKE '%" + searchNome + "%' AND i.username = '" + nome + "' AND i.estado='aceite'";
+                                sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax FROM formacao f LEFT JOIN inscricao i ON f.nome = i.nome WHERE f.nome LIKE '%" + searchNome + "%' AND i.username = '" + nome + "' AND (i.estado='aceite' OR i.estado='pendente')";
                             } else {
                                 sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax FROM formacao f LEFT JOIN inscricao i ON f.nome = i.nome WHERE f.nome LIKE '%" + searchNome + "%' GROUP BY f.nome, f.num_maximo";
                             }

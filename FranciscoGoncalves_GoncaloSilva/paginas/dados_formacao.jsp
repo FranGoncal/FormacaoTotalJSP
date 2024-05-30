@@ -124,27 +124,40 @@
                     String inscricaoSql = "SELECT * FROM inscricao WHERE username = '" + session.getAttribute("username") + "' AND nome = '" + nome + "'";
                     ResultSet inscricaoRs = null;
                     try {
-                            out.print("Cheguei aqui!<br><br>");
+                        
                         stmt = conn.createStatement();
                         
                         
                         inscricaoRs = stmt.executeQuery(inscricaoSql);
+
+                        boolean temInscricao = inscricaoRs.next();
+
+                        
+
                         //se não tem inscricao e a mesma esta fechada
-                        if (!inscricaoRs.next() && "1".equals(esta_fechada)) {
+                        if ( !temInscricao && "1".equals(esta_fechada)) {
                             out.print("<div style='margin-left: 100px;'><button class='botao_cinzento'>Fechada</button></div>");
                         }   //se não tem inscricao mas esta aberta 
-                        else if (!inscricaoRs.next()) {
-
-
-                            out.print("<a href='inscricao.jsp?nome=" + nome + "&valor=inscrever'><div style='margin-left: 100px;'><button class='botao' name='fechar'>Inscrever</button></div></a>");
-                        
-                        
+                        else if (!temInscricao) {
+                            out.println("Fazer Inscrição em horário:");
+                            out.print("<div style='margin-left: 10px;'><a href='inscricao.jsp?nome=" + nome + "&valor=inscrever&horario=Diurno'><button class='botao' name='fechar'>Diurno</button></a>");
+                            out.print("<a href='inscricao.jsp?nome=" + nome + "&valor=inscrever&horario=Noturno'><button class='botao' name='fechar' style='margin-left:20px'>Noturno</button></a></div>");
+                       
                         }   //se esta fechada e ele foi aceite
                         else if ("1".equals(esta_fechada) && "aceite".equals(inscricaoRs.getString("estado"))) {
                             out.print("<div style='margin-left: 100px;'><button class='botao_verde'>Aceite</button></div>");
                         }   //se tem inscricao mas não esta fechada 
                         else {
-                            out.print("<a href='inscricao.jsp?nome=" + nome + "&valor=desinscrever'><div style='margin-left: 100px;'><button class='botao_vermelho' name='fechar'>Desinscrever</button></div></a>");
+                            String horario = inscricaoRs.getString("horario");
+                            out.println("Inscrição no horário : "+horario);
+                            out.print("<div style='margin-left: 10px;'><a href='inscricao.jsp?nome=" + nome + "&valor=desinscrever'><button class='botao_vermelho' name='fechar'>Desinscrever</button></a>");
+                            if(horario.equals("Diurno")){
+                                out.print("<a href='inscricao.jsp?nome=" + nome + "&valor=editar&horario=Noturno'><button class='botao_laranja' name='fechar' style='margin-left:20px'>Alterar Horario</button></a></div>");
+                            }
+                            else{
+                                out.print("<a href='inscricao.jsp?nome=" + nome + "&valor=editar&horario=Diurno'><button class='botao_laranja' name='fechar' style='margin-left:20px'>Alterar Horario</button></a></div>");
+                            }
+
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();

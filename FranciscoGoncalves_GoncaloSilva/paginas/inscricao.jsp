@@ -1,6 +1,5 @@
 <%@	include	file="../basedados/basedados.h"%>
 
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <%@ page import="java.sql.*" %>
@@ -15,26 +14,33 @@
 
     String valor = request.getParameter("valor");
     String nome = request.getParameter("nome");
+    String horario = request.getParameter("horario");
+    
 
     String sql = "";
     if ("inscrever".equals(valor)) {
-        sql = "INSERT INTO inscricao (username, estado, nome, data_inscricao) VALUES('" + session.getAttribute("username") + "', 'pendente', '" + nome + "', CURDATE())";
-    } else if ("desinscrever".equals(valor)) {
+        sql = "INSERT INTO inscricao (username, estado, nome, data_inscricao, horario) VALUES('" + session.getAttribute("username") + "', 'pendente', '" + nome + "', CURDATE(), '" + horario + "')";
+    } 
+    else if ("desinscrever".equals(valor)) {
         sql = "DELETE FROM inscricao WHERE username = '" + session.getAttribute("username") + "' AND nome = '" + nome + "'";
-    } else {
+    } 
+    else if ("editar".equals(valor)) {
+        
+        sql = "UPDATE inscricao SET horario = '" + horario + "' WHERE nome = '" + nome + "' AND username = '"+session.getAttribute("username")+"';";
+        
+    }
+    else {
         response.sendRedirect("int_erro.html");
         return;
     }
 
     Statement stmt = null;
-
+    
     try {
-        out.println(sql+"<br>");
-        out.println("1 - Ainda não deu merda<br>");
+        out.print(sql);
         stmt = conn.createStatement();
-        out.println("2 - Ainda não deu merda<br>");
         int retval = stmt.executeUpdate(sql);
-        out.println("3 - Ainda não deu merda<br>");
+        
         if (retval == 1) {
             out.print("<script>");
             out.print("if(confirm('Inscrito com sucesso!')){");

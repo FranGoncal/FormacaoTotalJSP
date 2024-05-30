@@ -172,3 +172,19 @@ color: #f0f0f0;
 .tabela:hover {
   background-color: #a7a7a7;
   }
+
+.botao_laranja {
+  text-decoration: none; 
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 10px 20px; 
+  border: 2px solid #8b3801; 
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #ca5101;
+  }
+  
+  .botao_laranja:hover {
+  background-color: #883803;
+  color: #f0f0f0;
+  }
