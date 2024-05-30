@@ -52,6 +52,12 @@
 <!-- Conteúdo da página-->
 <div class="contorno">
     <div class="caixa">
+
+
+        <%
+            //se não houver sessao iniciada
+            if(session.getAttribute("username") == null){ 
+        %>
         <br>
         <center>
             <h1>Bem-vindo à Formação Total</h1>
@@ -78,6 +84,39 @@
                 <img src="curso.jpg" alt="" style="max-width: 85%; height: auto;">
             </div>
         </div>
+
+        <%
+            }
+            else{   //Se o aluno tiver a sessao iniciada
+        %>
+        <div id="cabecalho" style="display: flex;justify-content: center;align-items: center;">
+            <div class="caixa" style="width: 100%; text-align: center;border: none;margin-top:20px;margin-bottom:20px;">
+                    <h1>Área de Aluno</h1>
+            </div>
+        </div>
+
+
+        <div style="display: flex;">
+            <div style="border-right: 1px solid #999999;width: 50%; padding-top: 60px;padding-bottom: 60px;text-align: center;margin-bottom: 10px;F">
+                <a href="dados_pessoais.jsp" style="cursor: pointer;">
+                    <div><img src="dadosPessoais.png" style="width: 250px; height:250px;margin-bottom: 24px;" alt="Search Icon" class="search-icon"></div>
+            
+                    <div><button class="botao" name ="submit" type="submit">Gerir Dados Pessoais</button></div>
+                </a>
+            </div>
+
+            <div style="border-left : 1px solid #999999;width: 50%; padding-top: 60px;padding-bottom: 60px;text-align: center;margin-bottom: 10px;">
+                <a href="gerir_inscricoes.jsp" style="cursor: pointer;">
+                    <div><img src="livros.png" style="width: 250px; height:250px;margin-bottom: 24px;" alt="Search Icon" class="search-icon"></div>
+                    
+                    <div><button class="botao" name ="submit" type="submit">Gerir Inscrições de Cursos</button></div>
+                </a>
+            </div>
+        </div>
+
+        <%
+            }
+        %>
     </div>
 </div>
 

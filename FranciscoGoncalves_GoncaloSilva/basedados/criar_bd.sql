@@ -61,6 +61,7 @@ CREATE TABLE `inscricao` (
   `username` varchar(40) NOT NULL,
   `estado` varchar(40) DEFAULT NULL,
   `nome` varchar(40) NOT NULL,
+  `horario` varchar(40) NOT NULL,
   `data_inscricao` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -68,33 +69,33 @@ CREATE TABLE `inscricao` (
 -- Extraindo dados da tabela `inscricao`
 --
 
-INSERT INTO `inscricao` (`username`, `estado`, `nome`, `data_inscricao`) VALUES
-('aluno', 'pendente', 'Agricultura A', '2024-05-06'),
-('aluno', 'pendente', 'HTML', '2024-05-06'),
-('aluno', 'pendente', 'Java', '2024-05-06'),
-('aluno', 'pendente', 'PHP', '2024-05-06'),
-('aluno', 'pendente', 'PHP2', '2024-05-06'),
-('aluno', 'pendente', 'PHP3', '2024-05-06'),
-('utilizador1', 'pendente', 'Agricultura A', '1999-05-10'),
-('utilizador1', 'pendente', 'HTML', '1999-05-10'),
-('utilizador1', 'pendente', 'Java', '2024-05-06'),
-('utilizador1', 'pendente', 'PHP', '2024-05-06'),
-('utilizador1', 'pendente', 'PHP2', '2024-05-06'),
-('utilizador2', 'pendente', 'HTML', '2022-05-10'),
-('utilizador2', 'pendente', 'Java', '2024-05-06'),
-('utilizador2', 'pendente', 'PHP', '2024-05-06'),
-('utilizador2', 'pendente', 'PHP2', '2024-05-06'),
-('utilizador3', 'pendente', 'HTML', '2021-01-12'),
-('utilizador3', 'pendente', 'Java', '2024-05-06'),
-('utilizador3', 'pendente', 'PHP', '2024-05-06'),
-('utilizador4', 'pendente', 'HTML', '2024-05-06'),
-('utilizador4', 'pendente', 'Java', '2024-05-06'),
-('utilizador4', 'pendente', 'PHP', '2024-05-06'),
-('utilizador5', 'pendente', 'Agricultura A', '2001-02-12'),
-('utilizador5', 'pendente', 'HTML', '2001-02-12'),
-('utilizador5', 'pendente', 'Java', '2024-05-06'),
-('utilizador6', 'pendente', 'Agricultura A', '2024-05-06'),
-('utilizador6', 'pendente', 'HTML', '2001-01-12');
+INSERT INTO `inscricao` (`username`, `estado`, `nome`, `data_inscricao`, `horario`) VALUES
+('aluno', 'pendente', 'Agricultura A', '2024-05-06', 'Diurno'),
+('aluno', 'pendente', 'HTML', '2024-05-06', 'Diurno'),
+('aluno', 'pendente', 'Java', '2024-05-06', 'Diurno'),
+('aluno', 'pendente', 'PHP', '2024-05-06', 'Diurno'),
+('aluno', 'pendente', 'PHP2', '2024-05-06', 'Diurno'),
+('aluno', 'pendente', 'PHP3', '2024-05-06', 'Diurno'),
+('utilizador1', 'pendente', 'Agricultura A', '1999-05-10', 'Diurno'),
+('utilizador1', 'pendente', 'HTML', '1999-05-10', 'Diurno'),
+('utilizador1', 'pendente', 'Java', '2024-05-06', 'Diurno'),
+('utilizador1', 'pendente', 'PHP', '2024-05-06', 'Diurno'),
+('utilizador1', 'pendente', 'PHP2', '2024-05-06', 'Diurno'),
+('utilizador2', 'pendente', 'HTML', '2022-05-10', 'Diurno'),
+('utilizador2', 'pendente', 'Java', '2024-05-06', 'Diurno'),
+('utilizador2', 'pendente', 'PHP', '2024-05-06', 'Diurno'),
+('utilizador2', 'pendente', 'PHP2', '2024-05-06', 'Diurno'),
+('utilizador3', 'pendente', 'HTML', '2021-01-12', 'Diurno'),
+('utilizador3', 'pendente', 'Java', '2024-05-06', 'Diurno'),
+('utilizador3', 'pendente', 'PHP', '2024-05-06', 'Diurno'),
+('utilizador4', 'pendente', 'HTML', '2024-05-06', 'Diurno'),
+('utilizador4', 'pendente', 'Java', '2024-05-06', 'Diurno'),
+('utilizador4', 'pendente', 'PHP', '2024-05-06', 'Diurno'),
+('utilizador5', 'pendente', 'Agricultura A', '2001-02-12', 'Diurno'),
+('utilizador5', 'pendente', 'HTML', '2001-02-12', 'Diurno'),
+('utilizador5', 'pendente', 'Java', '2024-05-06', 'Diurno'),
+('utilizador6', 'pendente', 'Agricultura A', '2024-05-06', 'Diurno'),
+('utilizador6', 'pendente', 'HTML', '2001-01-12', 'Diurno');
 
 -- --------------------------------------------------------
 

@@ -82,8 +82,10 @@
                 <li>Artes e Criatividade</li>
             </ul>
             <p>Nossa missão é capacitar indivíduos e empresas com as habilidades necessárias para prosperar em um mundo em constante mudança.</p>
-            <p>Seja você um estudante ávido por conhecimento ou uma empresa em busca de aprimoramento profissional para a sua equipe, temos tudo o que você precisa para alcançar seus objetivos.</p>
+            <p>Seja você um estudante ávido por conhecimento ou uma empresa em busca de aprimoramento profissional para a sua equipa, temos tudo o que você precisa para alcançar os seus objetivos.</p>
             <p>Junte-se a nós e embarque nesta jornada emocionante de aprendizado e crescimento!</p>
+            <br>
+            <p>Morada: R. Poço do Moleiro, Castelo Branco </p>
         </div>
     </div>
 </div>
