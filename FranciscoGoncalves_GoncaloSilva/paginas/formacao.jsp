@@ -163,18 +163,26 @@
                                 <textarea id="texto" name="descricao" rows="7" cols="45"><%= descricao %></textarea>
                                 <br><br>       
                             </div> 
-                        
-                            <div style="margin-left: 130px;"><button class="botao" name="submit" type="submit">Atualizar</button></div>
-                            <br>
+                            <div style="display:flex; width:420px;justify-content: center;padding:15px;"><!---->
+                                <div style="flex: 1;text-align: center;"><button class="botao" name="submit" type="submit">Atualizar</button></div><!-- style="margin-left: 130px;"-->
+                            </div>
                         </form>
                         <%
+                            out.print("<div style='display:flex; width:420px;justify-content: center;'> <!---->");
+
                             if (data_fecho.compareTo(new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())) < 0) {
-                                out.print("<a href='fechar_formacao.jsp?nome=" + nome + "&criterio=" + criterio + "&vagas=" + vagas + "'><div style='margin-left: 100px;'><button class='botao' name='fechar'>Fechar Curso</button></div></a>");
+                                out.print("<div style='flex: 1;text-align: center; padding:10px;'><a href='fechar_formacao.jsp?nome=" + nome + "&criterio=" + criterio + "&vagas=" + vagas + "'><button class='botao' name='fechar'>Fechar Curso</button></a></div>");//style='margin-left: 100px;'
                             } else {
-                                out.print("<div style='margin-left: 110px;'><button class='botao_off' type='submit' onclick=\"alert('A Data limite ainda não passou')\">Fechar Curso</button></div>");
+                                out.print("<div style='flex: 1;text-align: center; padding:10px;'><button class='botao_off' type='submit' onclick=\"alert('A Data limite ainda não passou')\">Fechar Curso</button></div>");
                             }
-                            out.print("<br><a href='apagar_formacao.jsp?nome=" + nome + "'><div style='margin-left: 110px;'><button class='botao_vermelho' name='apagar'>Apagar Curso</button></div></a>");
+
+                            
+                            out.print("<br><div style='flex: 1;text-align: center; padding:10px;'><a href='apagar_formacao.jsp?nome=" + nome + "'><button class='botao_vermelho' name='apagar'>Apagar Curso</button></a></div>");
+                            out.print("<br><div style='flex: 1;text-align: center; padding:10px;'><a href='gerir_inscricoes_adm.jsp?nome=" + nome + "'><button class='botao_laranja' name='gerir'>Gerir Inscrições</button></a></div>");
+
+                            
                         %>
+                        </div> <!---->
                     </div>
                 <%
                     } else {
