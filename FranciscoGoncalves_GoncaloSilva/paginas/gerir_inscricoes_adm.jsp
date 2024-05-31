@@ -122,7 +122,7 @@
                                     //coluna inscrever
                                     if (estadoInscricao == null) {
                                 %>
-                                <td style='width: 10%'><a href='editar_utilizadores.jsp?utilizador=<%= rs.getString("username") %>'><img src='formacao.png' alt='editar' style='width:28px'></a></td>
+                                <td style='width: 10%'><a href='inscrever.jsp?utilizador=<%= rs.getString("username") %>&curso=<%= curso %>'><img src='formacao.png' alt='editar' style='width:28px'></a></td>
                                 <%
                                     }
                                     else{
@@ -139,7 +139,7 @@
                                     if (estadoInscricao != null && estadoInscricao.equals("pendente")) {
                                 %>
                                 <td style='width: 13%'>
-                                    <a style='margin: 5px' href='validar.jsp?utilizador=<%= rs.getString("username") %>&nivel=aluno'><img src='validar.png' alt='validar aluno' style='width:28px'></a>
+                                    <a style='margin: 5px' href='editar_inscricao.jsp?utilizador=<%= rs.getString("username") %>&acao=validar&curso=<%= curso %>'><img src='validar.png' alt='validar aluno' style='width:28px'></a>
                                 </td>
                                 <%
                                     }
@@ -153,10 +153,11 @@
 
 
                                 <%
+                                    //coluna eliminar
                                     if (estadoInscricao != null) {
                                 %>
                                 <td style='width: 13%'>
-                                    <a style='margin: 5px' href='validar.jsp?utilizador=<%= rs.getString("username") %>&nivel=aluno'><img src='eliminar.png' alt='validar aluno' style='width:28px'></a>
+                                    <a style='margin: 5px' href='editar_inscricao.jsp?utilizador=<%= rs.getString("username") %>&acao=eliminar&curso=<%= curso %>'><img src='eliminar.png' alt='validar aluno' style='width:28px'></a>
                                 </td>
                                 <%
                                     }
