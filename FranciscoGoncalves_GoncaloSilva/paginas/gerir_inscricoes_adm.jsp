@@ -2,12 +2,31 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*, javax.servlet.http.*, javax.servlet.*" %>
+
+<%!
+    String getInscricao(String username, String curso, Connection conn) throws SQLException {
+        String sql = "SELECT * FROM inscricao WHERE nome = '"+curso+"' AND username = '"+username+"';";
+        PreparedStatement ps = null;
+
+        ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        String estado = null;
+        if(rs.next()){
+            estado = rs.getString("estado");
+        }
+
+        return estado;
+    }
+
+%>
+
+
 <%
-    
     String nivel = (String) session.getAttribute("nivel");
     if (nivel == null || !nivel.equals("admin")) {
         response.sendRedirect("logout.jsp");
     }
+    String curso = request.getParameter("nome");
 %>
 
 <!DOCTYPE html>
@@ -60,7 +79,7 @@
 
         <!-- Conteúdo da página-->
         <div class="contorno">
-            <div class="caixa" style="max-width: 85%; min-width: 75%;">
+            <div class="caixa" style="max-width: 85%; min-width: 80%;">
                 <div id="cabecalho" style="display: flex; justify-content: center; align-items: center;">
                     <div class="caixa" style="width: 100%; text-align: center; border: none; margin-top: 20px; margin-bottom: 20px;">
                         <h1>Gestão de Inscrições</h1>
@@ -84,41 +103,75 @@
                                 <th>Username</th>
                                 <th>Data Nascimento</th>
                                 <th>Nivel</th>
-                                <th>Editar</th>
+                                <th>Inscrever</th>
                                 <th>Validar</th>
+                                <th>Eliminar</th>
                             </tr>
                             <%
                                 while (rs.next()) {
+                                    String estadoInscricao = getInscricao(rs.getString("username"), curso, conn);
                             %>
                             <tr>
                                 <td style='width: 18%'><%= rs.getString("nome") %></td>
                                 <td style='width: 18%'><%= rs.getString("username") %></td>
                                 <td style='width: 18%'><%= rs.getDate("data_nasc") %></td>
                                 <td style='width: 18%'><%= rs.getString("nivel") %></td>
-                                <td style='width: 12%'><a href='editar_utilizadores.jsp?utilizador=<%= rs.getString("username") %>'><img src='editar.png' alt='editar' style='width:28px'></a></td>
+
+
                                 <%
-                                    if ("pendente".equals(rs.getString("nivel"))) {
+                                    //coluna inscrever
+                                    if (estadoInscricao == null) {
                                 %>
-                                <td style='width: 12%'>
-                                    <a style='margin: 5px' href='validar.jsp?utilizador=<%= rs.getString("username") %>&nivel=aluno'><img src='validarAluno.png' alt='validar aluno' style='width:28px'></a>
-                                    <a style='margin: 5px' href='validar.jsp?utilizador=<%= rs.getString("username") %>&nivel=docente'><img src='validarDocente.png' alt='validar docente' style='width:28px'></a>
-                                    <a style='margin: 5px' href='validar.jsp?utilizador=<%= rs.getString("username") %>&nivel=admin'><img src='validarAdm.png' alt='validar administrador' style='width:28px'></a>
+                                <td style='width: 10%'><a href='editar_utilizadores.jsp?utilizador=<%= rs.getString("username") %>'><img src='formacao.png' alt='editar' style='width:28px'></a></td>
+                                <%
+                                    }
+                                    else{
+                                %>
+                                    <td style='width: 10%'></td>
+                                <%
+                                    }
+                                %>
+
+
+
+                                <%
+                                    //coluna validar
+                                    if (estadoInscricao != null && estadoInscricao.equals("pendente")) {
+                                %>
+                                <td style='width: 13%'>
+                                    <a style='margin: 5px' href='validar.jsp?utilizador=<%= rs.getString("username") %>&nivel=aluno'><img src='validar.png' alt='validar aluno' style='width:28px'></a>
+                                </td>
+                                <%
+                                    }
+                                    else{
+                                %>
+                                    <td style='width: 13%'></td>
+                                <%
+                                    }
+                                %>
+
+
+
+                                <%
+                                    if (estadoInscricao != null) {
+                                %>
+                                <td style='width: 13%'>
+                                    <a style='margin: 5px' href='validar.jsp?utilizador=<%= rs.getString("username") %>&nivel=aluno'><img src='eliminar.png' alt='validar aluno' style='width:28px'></a>
                                 </td>
                                 <%
                                     }
                                 %>
+
                             </tr>
                             <%
                                 }
                                 rs.close();
                                 stmt.close();
-                                conn.close();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             } finally {
                                 try {
                                     if (stmt != null) stmt.close();
-                                    if (conn != null) conn.close();
                                 } catch (SQLException se) {
                                     se.printStackTrace();
                                 }
