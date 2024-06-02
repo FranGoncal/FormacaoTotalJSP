@@ -15,7 +15,7 @@
         return;
     }
 
-    PreparedStatement pstmt = null;
+    PreparedStatement ps = null;
     ResultSet rs = null;
 
     String nome = null;
@@ -24,9 +24,9 @@
 
     try {
         String sql = "SELECT * FROM utilizador WHERE username = ?";
-        pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, utilizador);
-        rs = pstmt.executeQuery();
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, utilizador);
+        rs = ps.executeQuery();
 
         if (rs.next()) {
             nome = rs.getString("nome");
@@ -48,18 +48,18 @@
         
         try {
             String sql = "UPDATE utilizador SET nome = ?, data_nasc = ?, nivel = ? WHERE username = ?";
-            pstmt = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql);
 
             //Para evitar desformatação de caracteres especiais para dentro da BD
             nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
             userNivel = new String(userNivel.getBytes("ISO-8859-1"), "UTF-8");
             //utilizador = new String(utilizador.getBytes("ISO-8859-1"), "UTF-8");
             
-            pstmt.setString(1, nome);
-            pstmt.setString(2, data_nasc);
-            pstmt.setString(3, userNivel);
-            pstmt.setString(4, utilizador);
-            int rowsAffected = pstmt.executeUpdate();
+            ps.setString(1, nome);
+            ps.setString(2, data_nasc);
+            ps.setString(3, userNivel);
+            ps.setString(4, utilizador);
+            int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
                 out.println("<script>alert('Atualizado com sucesso!');</script>");
@@ -68,13 +68,6 @@
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
         }
     }
 %>

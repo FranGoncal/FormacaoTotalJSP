@@ -6,7 +6,7 @@
 <%
     
     String nivel = (String) session.getAttribute("nivel");
-    if (!(nivel.equals("docente") || nivel.equals("admin"))) {
+    if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
         response.sendRedirect("logout.jsp");
         return;
     }
@@ -38,12 +38,12 @@
         return;
     }
 
-    Statement stmt = null;
+    Statement ps = null;
     
     try {
         out.print(sql);
-        stmt = conn.createStatement();
-        int retval = stmt.executeUpdate(sql);
+        ps = conn.createStatement();
+        int retval = ps.executeUpdate(sql);
         
         if (retval == 1 && acao.equals("inscrever")) {
             out.print("<script>");
@@ -76,12 +76,5 @@
 
     } catch (Exception e) {
         e.printStackTrace();
-    } finally {
-        try {
-            if (stmt != null) stmt.close();
-            if (conn != null) conn.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
     }
 %>

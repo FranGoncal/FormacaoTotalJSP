@@ -10,7 +10,8 @@
 
 <%
 
-    if (!session.getAttribute("nivel").equals("docente") && !session.getAttribute("nivel").equals("admin")) {
+    String nivel = (String) session.getAttribute("nivel");
+    if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
         response.sendRedirect("logout.jsp");
         return;
     }
@@ -220,8 +221,10 @@
                         %>
                     </table><br/>
                     
-                    
-                    <a href="apagar_formacao.jsp?nome=<%= nome %>"><div style="margin-left: 150px;"><button class="botao_vermelho" name="apagar">Apagar Formação</button></div></a>
+                    <div style="display:flex;justify-content: center;margin-left:40px">
+                        <div style=" flex: 1;text-align: center; padding:10px;"><a href="apagar_formacao.jsp?nome=<%= nome %>"><button class="botao_vermelho" name="apagar">Apagar Formação</button></a></div>
+                        <div style='flex: 1;text-align: center; padding:10px;'><a href='gerir_inscricoes_adm.jsp?nome=<%= nome %>'><button class='botao_laranja' name='gerir'>Gerir Inscrições</button></a></div>
+                    </div>
                     </div>
                     <br>
                     

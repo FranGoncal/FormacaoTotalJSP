@@ -12,7 +12,8 @@
 </head>
 <body>
 <%
-    if (!"docente".equals(session.getAttribute("nivel")) && !"admin".equals(session.getAttribute("nivel"))) {
+    String nivel = (String) session.getAttribute("nivel");
+    if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
         response.sendRedirect("logout.jsp");
         return;
     }
@@ -21,14 +22,11 @@
     String nome = request.getParameter("nome");
     String criterio = request.getParameter("criterio");
 
-    Statement stmt = null;
-
     try {
-        
         String sql = "UPDATE formacao SET esta_fechada = TRUE WHERE nome = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, nome);
-        pstmt.executeUpdate();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, nome);
+        ps.executeUpdate();
 
         switch (criterio) {
             case "Data Inscrição":
@@ -48,19 +46,16 @@
                 return;
         }
 
-        pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, nome);
-        pstmt.setString(2, nome);
-        pstmt.setInt(3, Integer.parseInt(vagas));
-        pstmt.executeUpdate();
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, nome);
+        ps.setString(2, nome);
+        ps.setInt(3, Integer.parseInt(vagas));
+        ps.executeUpdate();
 
         out.println("<script>alert('Formação fechada com sucesso! :)');</script>");
     } catch (Exception e) {
         out.println("<script>alert('Ocorreu um erro :(!');</script>");
         e.printStackTrace();
-    } finally {
-        if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
-        if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
     }
     response.sendRedirect("formacao.jsp");
 %>

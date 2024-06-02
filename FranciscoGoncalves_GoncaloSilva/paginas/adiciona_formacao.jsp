@@ -2,26 +2,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%!
-
     boolean formacaoValida(String nome, Connection conn) throws SQLException {
         String sql = "SELECT * FROM formacao WHERE nome = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, nome);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                return !rs.next();
-            }
-        }
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, nome);
+        ResultSet rs = pstmt.executeQuery();
+        return !rs.next();
     }
     boolean nVagasValido(int vagas) {
         return vagas > 0;
     }
 %>
 
-
 <%
-    if(session == null || (!session.getAttribute("nivel").equals("docente") && !session.getAttribute("nivel").equals("admin"))){
+    String nivel = (String) session.getAttribute("nivel");
+    if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
         response.sendRedirect("logout.jsp");
-        return;
     }
 
     String username = (String) session.getAttribute("username");
@@ -36,7 +32,7 @@
         if(formacaoValida(nome, conn) && nVagasValido(vagas)) {
             String sql = "INSERT INTO formacao (nome, num_maximo, esta_fechada, criterio_selecao, data_fecho, username, descricao) VALUES (?, ?, false, ?, ?, ?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+                
                 //Para evitar desformatação de caracteres especiais para dentro da BD
                 nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
                 criterioSelecao = new String(criterioSelecao.getBytes("ISO-8859-1"), "UTF-8");

@@ -4,19 +4,14 @@
 <%@ page import="java.sql.*, javax.servlet.http.*, javax.servlet.*" %>
 
 <%!
-
     boolean usernameValido(String username, Connection conn) throws SQLException {
         String sql = "SELECT * FROM utilizador WHERE username = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                return !rs.next();
-            }
-        }
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, username);
+        ResultSet rs = pstmt.executeQuery();
+        return !rs.next(); 
     }
-
 %>
-
 
 <%
     String nivel = (String) session.getAttribute("nivel");
@@ -43,7 +38,6 @@
             ResultSet rs = null;
 
             try {
-                
                 if (usernameValido(username, conn)) {
                     String sql = "INSERT INTO utilizador (username, palavra_passe, nome, data_nasc, nivel) VALUES (?, MD5(?), ?, ?, ?)";
                     pstmt = conn.prepareStatement(sql);

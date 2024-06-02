@@ -8,7 +8,7 @@
     String nome = "";
     String data_nasc = "";
 
-    if (!("aluno".equals(session.getAttribute("nivel")) || "docente".equals(session.getAttribute("nivel")) || "admin".equals(session.getAttribute("nivel")))) {
+    if (session.getAttribute("nivel") == null || !("aluno".equals(session.getAttribute("nivel")) || "docente".equals(session.getAttribute("nivel")) || "admin".equals(session.getAttribute("nivel")))) {
         response.sendRedirect("logout.jsp");
     }
 
@@ -17,9 +17,9 @@
     try {
 
         String sql = "SELECT * FROM utilizador WHERE username = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, username);
-        ResultSet rs = pstmt.executeQuery();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
             nome = rs.getString("nome");
@@ -34,16 +34,16 @@
             data_nasc = request.getParameter("data_nasc");
 
             sql = "UPDATE utilizador SET nome = ?, data_nasc = ? WHERE username = ?";
-            pstmt = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql);
 
             //Para evitar desformatação de caracteres especiais para dentro da BD
             nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
 
-            pstmt.setString(1, nome);
-            pstmt.setString(2, data_nasc);
-            pstmt.setString(3, username);
+            ps.setString(1, nome);
+            ps.setString(2, data_nasc);
+            ps.setString(3, username);
 
-            if (pstmt.executeUpdate() > 0) {
+            if (ps.executeUpdate() > 0) {
                 // out.println("Dados atualizados com sucesso!");
                 out.println("<script>alert('Editado com sucesso!');</script>");
             } else {

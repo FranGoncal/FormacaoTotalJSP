@@ -4,7 +4,8 @@
 
 
 <%
-    if(session == null || (!session.getAttribute("nivel").equals("admin") && !session.getAttribute("nivel").equals("docente"))){
+    String nivel = (String) session.getAttribute("nivel");
+    if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
         response.sendRedirect("logout.jsp");
         return;
     }

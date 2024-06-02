@@ -3,22 +3,19 @@
 <%@ page import="java.sql.*, javax.servlet.http.*, javax.servlet.*" %>
 
 <%
-    if (!"admin".equals(session.getAttribute("nivel")) && !"docente".equals(session.getAttribute("nivel"))) {
+    String nivel = (String) session.getAttribute("nivel");
+    if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
         response.sendRedirect("logout.jsp");
-        return;
     }
 
     String nome = request.getParameter("nome");
 
-    Statement stmt = null;
-
-    try {
-        // Ligar à base de dados
+    try {   
 
         String sql = "DELETE FROM inscricao WHERE nome = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, nome);
-        int rowsAffected = pstmt.executeUpdate();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, nome);
+        int rowsAffected = ps.executeUpdate();
 
         if (rowsAffected == 1) {
             out.println("<script>");
@@ -29,9 +26,9 @@
         }
 
         sql = "DELETE FROM formacao WHERE nome = ?";
-        pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, nome);
-        rowsAffected = pstmt.executeUpdate();
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, nome);
+        rowsAffected = ps.executeUpdate();
 
         if (rowsAffected == 1) {
             out.println("<script>");
@@ -48,8 +45,5 @@
         }
     } catch (Exception e) {
         e.printStackTrace();
-    } finally {
-        if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
-        if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
     }
 %>

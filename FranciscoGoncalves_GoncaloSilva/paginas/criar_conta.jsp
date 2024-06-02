@@ -10,15 +10,15 @@
     // valida se o username já está em uso
     boolean usernameValido(String username, Connection conn) throws SQLException {
         String sql = "SELECT * FROM utilizador WHERE username = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, username);
-        ResultSet rs = pstmt.executeQuery();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
         
         if(rs.next())
             return false;
         
         rs.close();
-        pstmt.close();
+        ps.close();
         return true;
     }
 
@@ -36,21 +36,21 @@
             
             if(usernameValido(username,conn)){
                 String sql = "INSERT INTO utilizador (username, palavra_passe, nome, data_nasc, nivel) VALUES (?,md5(?),?,?,?)";
-                PreparedStatement pstmt = conn.prepareStatement(sql);
+                PreparedStatement ps = conn.prepareStatement(sql);
 
                 //Para evitar desformatação de caracteres especiais para dentro da BD
                 username = new String(username.getBytes("ISO-8859-1"), "UTF-8");
                 password = new String(password.getBytes("ISO-8859-1"), "UTF-8");
                 nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
 
-                pstmt.setString(1, username);
-                pstmt.setString(2, password);
-                pstmt.setString(3, nome);
-                pstmt.setString(4, data_nasc);
-                pstmt.setString(5, "pendente");
+                ps.setString(1, username);
+                ps.setString(2, password);
+                ps.setString(3, nome);
+                ps.setString(4, data_nasc);
+                ps.setString(5, "pendente");
                 
-                int rowsInserted = pstmt.executeUpdate();
-                pstmt.close();
+                int rowsInserted = ps.executeUpdate();
+                ps.close();
                 conn.close();
                 
                 if(rowsInserted == 1){//INSERT com sucesso

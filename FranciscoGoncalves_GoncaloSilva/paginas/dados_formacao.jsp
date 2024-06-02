@@ -17,7 +17,7 @@
 
     String nome = (String) session.getAttribute("nome");
 
-    Statement stmt = null;
+    PreparedStatement ps = null;
     ResultSet rs = null;
 
     String vagas = "";
@@ -28,9 +28,9 @@
     String descricao = "";
 
     try {
-        stmt = conn.createStatement();
         String sql = "SELECT * FROM formacao WHERE nome = '" + nome + "'";
-        rs = stmt.executeQuery(sql);
+        ps = conn.prepareStatement(sql);
+        rs = ps.executeQuery();
 
         if (rs.next()) {
             vagas = rs.getString("num_maximo");
@@ -45,13 +45,6 @@
         }
     } catch (Exception e) {
         e.printStackTrace();
-    } finally {
-        try {
-            if (rs != null) rs.close();
-            if (stmt != null) stmt.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
     }
 %>
 
@@ -125,14 +118,11 @@
                     ResultSet inscricaoRs = null;
                     try {
                         
-                        stmt = conn.createStatement();
+                        ps = conn.prepareStatement(inscricaoSql);
                         
-                        
-                        inscricaoRs = stmt.executeQuery(inscricaoSql);
+                        inscricaoRs = ps.executeQuery(inscricaoSql);
 
-                        boolean temInscricao = inscricaoRs.next();
-
-                        
+                        boolean temInscricao = inscricaoRs.next();  
 
                         //se não tem inscricao e a mesma esta fechada
                         if ( !temInscricao && "1".equals(esta_fechada)) {
@@ -161,13 +151,6 @@
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
-                    } finally {
-                        try {
-                            if (inscricaoRs != null) inscricaoRs.close();
-                            if (stmt != null) stmt.close();
-                        } catch (SQLException se) {
-                            se.printStackTrace();
-                        }
                     }
                 %>
                 </div>

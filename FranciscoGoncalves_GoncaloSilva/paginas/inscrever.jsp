@@ -5,12 +5,13 @@
 <%@ page import="java.sql.*" %>
 
 <%
-    
     String nome = "";
     String data_nasc = "";
 
-    if (!("aluno".equals(session.getAttribute("nivel")) || "docente".equals(session.getAttribute("nivel")) || "admin".equals(session.getAttribute("nivel")))) {
+    String nivel = (String) session.getAttribute("nivel");
+    if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
         response.sendRedirect("logout.jsp");
+        return;
     }
 
     String curso = request.getParameter("curso");
