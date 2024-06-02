@@ -2,9 +2,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
-<%@ page import="javax.servlet.http.*" %><!-- verificar se necessario-->
-
 
 <%!
     // valida se o username já está em uso
@@ -14,14 +11,12 @@
         ps.setString(1, username);
         ResultSet rs = ps.executeQuery();
         
+        //se existe resultado da consulta o nome nao e valido
         if(rs.next())
             return false;
         
-        rs.close();
-        ps.close();
         return true;
     }
-
 %>
 
 <%

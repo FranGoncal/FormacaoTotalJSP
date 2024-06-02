@@ -1,21 +1,20 @@
 <%@	include	file="../basedados/basedados.h"%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
 
 <%!
     String estadoInscricao(String nome, Connection conn, String username) throws SQLException {
         String estado = null;
         String sql = "SELECT estado FROM inscricao WHERE username = '"+username+"' AND nome = '"+nome+"'";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        ResultSet rs = pstmt.executeQuery();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
 
+        //se encontrou uma inscricao
         if (rs.next()) {
+            //atualiza a variavel
             estado = rs.getString("estado");
         }
-        rs.close();
-        pstmt.close();
 
         return estado;
     }
@@ -26,7 +25,6 @@
     if (nivel == null || !nivel.equals("aluno")) {
         response.sendRedirect("logout.jsp");
     }
-
     String nome = (String) session.getAttribute("username");
 %>
 
@@ -100,7 +98,8 @@
             <div style="display: flex; justify-content: center">
                 <center>
                     <%
-                        Statement stmt = null;
+                        PreparedStatement ps = null;
+
                         try {
 
                             String sql = "";
@@ -115,9 +114,9 @@
                             } else {
                                 sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax FROM formacao f LEFT JOIN inscricao i ON f.nome = i.nome WHERE f.nome LIKE '%" + searchNome + "%' GROUP BY f.nome, f.num_maximo";
                             }
-
-                            stmt = conn.createStatement();
-                            ResultSet rs = stmt.executeQuery(sql);
+                            
+                            ps = conn.prepareStatement(sql);
+                            ResultSet rs = ps.executeQuery();
 
                             out.println("<table border='1' style='text-align:center; width: 1100px;'><tr><th>Nome</th><th>Vagas</th><th>Data Fecho</th><th>Critério</th><th>Estado</th><th>Inscricao</th></tr>");
                             while (rs.next()) {
@@ -147,21 +146,8 @@
                                 out.println("</tr>");
                             }
                             out.println("</table><br/>");
-                            rs.close();
-                            stmt.close();
-                            conn.close();
                         } catch (Exception e) {
                             e.printStackTrace();
-                        } finally {
-                            try {
-                                if (stmt != null) stmt.close();
-                            } catch (SQLException se2) {
-                            }
-                            try {
-                                if (conn != null) conn.close();
-                            } catch (SQLException se) {
-                                se.printStackTrace();
-                            }
                         }
 
                         

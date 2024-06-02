@@ -2,7 +2,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
 <%
     String nivel = (String) session.getAttribute("nivel");
     if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
@@ -79,13 +78,12 @@
                 <div style="display: flex; justify-content: center">
                     <center>
                         <%
-                            Statement stmt = null;
+                            PreparedStatement ps = null;
                             ResultSet rs = null;
 
                             try {
-                                stmt = conn.createStatement();
-                                
                                 String sql = "";
+                                //Se for um docente
                                 if(session.getAttribute("nivel").equals("docente")) {
                                     sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax, COUNT(i.nome) AS numInscricoes " +
                                           "FROM utilizador u " +
@@ -93,7 +91,9 @@
                                           "LEFT JOIN inscricao i ON f.nome = i.nome " +
                                           "WHERE u.username = '" + nome + "' " +
                                           "GROUP BY f.nome, f.num_maximo;";
-                                } else if(session.getAttribute("nivel").equals("admin")) {
+                                } 
+                                //Se for um admin
+                                else if(session.getAttribute("nivel").equals("admin")) {
                                     sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax, COUNT(i.nome) AS numInscricoes " +
                                           "FROM utilizador u " +
                                           "JOIN formacao f ON u.username = f.username " +
@@ -101,7 +101,9 @@
                                           "GROUP BY f.nome, f.num_maximo;";
                                 }
                                 
-                                rs = stmt.executeQuery(sql);
+                                ps = conn.prepareStatement(sql);
+                                rs = ps.executeQuery();
+                                
                                 out.println("<table border='1' style='text-align:center; width: 1000px;'><tr><th>Nome</th><th>Vagas</th><th>Inscrições</th><th>Data Fecho</th><th>Critério</th><th>Estado</th></tr>");
 
                                 while(rs.next()) {
@@ -118,14 +120,7 @@
 
                                 out.println("</table><br/>");
                             } catch (Exception e) {
-                                out.println("Could not connect: " + e.getMessage());
-                            } finally {
-                                try {
-                                    if(rs != null) rs.close();
-                                    if(stmt != null) stmt.close();
-                                } catch (SQLException se) {
-                                    se.printStackTrace();
-                                }
+                                e.printStackTrace();
                             }
                         %>
                     </center>

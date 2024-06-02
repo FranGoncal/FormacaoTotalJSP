@@ -1,7 +1,6 @@
 <%@	include	file="../basedados/basedados.h"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
 
 <%
@@ -18,11 +17,10 @@
     String username = (String) request.getParameter("utilizador");
 
     try {
-
         String sql = "SELECT * FROM utilizador WHERE username = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, username);
-        ResultSet rs = pstmt.executeQuery();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
             nome = rs.getString("nome");
@@ -31,40 +29,10 @@
             out.println("<script>alert('Nenhum utilizador encontrado!');</script>");
             return;
         }
-
-        if ("POST".equalsIgnoreCase(request.getMethod())) {
-            nome = request.getParameter("nome");
-            data_nasc = request.getParameter("data_nasc");
-
-            sql = "UPDATE utilizador SET nome = ?, data_nasc = ? WHERE username = ?";
-            pstmt = conn.prepareStatement(sql);
-
-            //Para evitar desformatação de caracteres especiais para dentro da BD
-            nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
-
-            pstmt.setString(1, nome);
-            pstmt.setString(2, data_nasc);
-            pstmt.setString(3, username);
-
-            if (pstmt.executeUpdate() > 0) {
-                // out.println("Dados atualizados com sucesso!");
-                out.println("<script>alert('Editado com sucesso!');</script>");
-            } else {
-                // out.println("Erro ao atualizar os dados!");
-                out.println("<script>alert('Editado sem sucesso :(!');</script>");
-            }
-        }
     } catch (Exception e) {
         e.printStackTrace();
-    } finally {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
     }
+    
 %>
 
 <!DOCTYPE html>

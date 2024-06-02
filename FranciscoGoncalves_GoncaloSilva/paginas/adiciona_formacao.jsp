@@ -7,6 +7,7 @@
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, nome);
         ResultSet rs = pstmt.executeQuery();
+        //retorna se a consulta !(encontrou formacao)
         return !rs.next();
     }
     boolean nVagasValido(int vagas) {

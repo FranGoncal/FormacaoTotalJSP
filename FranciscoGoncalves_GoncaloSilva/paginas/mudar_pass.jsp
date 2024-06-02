@@ -1,7 +1,7 @@
 <%@ include file="../basedados/basedados.h" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.sql.*, javax.servlet.http.*" %>
+<%@ page import="java.sql.*" %>
 <%
 
     // Confirmação de nível
@@ -18,15 +18,15 @@
         String confirmacao = request.getParameter("confirmacao");
 
         if (password.equals(confirmacao)) {
-            PreparedStatement pstmt = null;
+            PreparedStatement ps = null;
 
             try {
                 String sql = "UPDATE utilizador SET palavra_passe = md5(?) WHERE username = ?";
-                pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, password);  // Assumindo que você tenha uma função md5 definida para hash
-                pstmt.setString(2, utilizador);
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, password);
+                ps.setString(2, utilizador);
 
-                int rowsAffected = pstmt.executeUpdate();
+                int rowsAffected = ps.executeUpdate();
 
                 if (rowsAffected > 0) {
                     out.println("<script>alert('Atualizado com sucesso!');</script>");
@@ -36,14 +36,7 @@
             } catch (SQLException e) {
                 e.printStackTrace();
                 response.getWriter().println("Erro ao acessar o banco de dados.");
-            } finally {
-                try {
-                    if (pstmt != null) pstmt.close();
-                    if (conn != null) conn.close();
-                } catch (SQLException se) {
-                    se.printStackTrace();
-                }
-            }
+            } 
         } else {
             out.println("<script>");
             out.println("if (confirm('As palavras-passe não coincidem!')) {");

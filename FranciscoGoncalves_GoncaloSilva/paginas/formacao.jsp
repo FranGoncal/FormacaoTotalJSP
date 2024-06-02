@@ -5,11 +5,9 @@
     boolean nVagasValido(int vagas) {
         return vagas > 0;
     }
-
 %>
 
 <%
-
     String nivel = (String) session.getAttribute("nivel");
     if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
         response.sendRedirect("logout.jsp");
@@ -81,9 +79,7 @@
         } else {
             out.println("<script>alert('Número de vagas inválido!');</script>");
         }
-    }
-
-    
+    }    
 %>
 
 <!DOCTYPE html>

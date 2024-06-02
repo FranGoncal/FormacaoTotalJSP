@@ -1,7 +1,6 @@
 <%@ include file="../basedados/basedados.h" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 
 <%

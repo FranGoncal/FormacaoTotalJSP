@@ -1,7 +1,7 @@
 <%@	include	file="../basedados/basedados.h"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*, javax.servlet.http.*, javax.servlet.*" %>
+<%@ page import="java.sql.*" %>
 
 <%!
     boolean usernameValido(String username, Connection conn) throws SQLException {
@@ -9,6 +9,8 @@
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, username);
         ResultSet rs = pstmt.executeQuery();
+
+        //retorna se a consulta !(encontrou utilizador)
         return !rs.next(); 
     }
 %>
@@ -19,10 +21,10 @@
         response.sendRedirect("logout.jsp");
     }
 
-    boolean userCreated = false;
-    boolean errorOccurred = false;
-    boolean usernameExists = false;
-    boolean passwordsMismatch = false;
+    boolean userCreated = false;        //TODOOOOOOOOOOOO REVER VARIAVEIS
+    boolean errorOccurred = false;      //TODOOOOOOOOOOOO REVER VARIAVEIS
+    boolean usernameExists = false;     //TODOOOOOOOOOOOO REVER VARIAVEIS
+    boolean passwordsMismatch = false;  //TODOOOOOOOOOOOO REVER VARIAVEIS
 
     if (request.getParameter("submit") != null) {
         String data_nasc = request.getParameter("data_nasc");
@@ -66,14 +68,6 @@
             } catch (Exception e) {
                 e.printStackTrace();
                 errorOccurred = true;
-            } finally {
-                try {
-                    if (rs != null) rs.close();
-                    if (pstmt != null) pstmt.close();
-                    if (conn != null) conn.close();
-                } catch (SQLException se) {
-                    se.printStackTrace();
-                }
             }
         } else {
             passwordsMismatch = true;

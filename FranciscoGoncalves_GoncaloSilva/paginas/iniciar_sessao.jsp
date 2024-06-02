@@ -2,11 +2,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page language="java" import="java.sql.*" %>
-<%@ page import="java.io.*" %>
-<%@ page import="java.security.*" %>
-<%@ page import="javax.servlet.*" %>
-<%@ page import="javax.servlet.http.*" %>
-<%@ page import="java.sql.PreparedStatement" %>
 
 <%
     String username = request.getParameter("username");
@@ -57,13 +52,6 @@
         } catch (SQLException e) {
             out.println("<script>alert('Erro ao obter os dados do utilizador! :(');</script>");
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 %>

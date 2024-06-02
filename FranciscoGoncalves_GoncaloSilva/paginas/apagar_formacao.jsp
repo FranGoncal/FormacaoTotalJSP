@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../basedados/basedados.h" %>
-<%@ page import="java.sql.*, javax.servlet.http.*, javax.servlet.*" %>
+<%@ page import="java.sql.*" %>
 
 <%
     String nivel = (String) session.getAttribute("nivel");
@@ -11,7 +11,6 @@
     String nome = request.getParameter("nome");
 
     try {   
-
         String sql = "DELETE FROM inscricao WHERE nome = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, nome);

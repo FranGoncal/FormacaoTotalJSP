@@ -1,10 +1,9 @@
 <%@	include	file="../basedados/basedados.h"%>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 
 <%
-    
     String nivel = (String) session.getAttribute("nivel");
     if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
         response.sendRedirect("logout.jsp");
@@ -38,12 +37,12 @@
         return;
     }
 
-    Statement ps = null;
+    PreparedStatement ps = null;
     
     try {
         out.print(sql);
-        ps = conn.createStatement();
-        int retval = ps.executeUpdate(sql);
+        ps = conn.prepareStatement(sql);
+        int retval = ps.executeUpdate();
         
         if (retval == 1 && acao.equals("inscrever")) {
             out.print("<script>");
