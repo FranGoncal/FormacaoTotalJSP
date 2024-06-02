@@ -4,18 +4,23 @@
 <%@ page import="java.sql.*, javax.servlet.http.*, javax.servlet.*" %>
 
 <%!
-    String getInscricao(String username, String curso, Connection conn) throws SQLException {
+    String[] getInscricao(String username, String curso, Connection conn) throws SQLException {
         String sql = "SELECT * FROM inscricao WHERE nome = '"+curso+"' AND username = '"+username+"';";
         PreparedStatement ps = null;
 
         ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         String estado = null;
+        String horario = null;
+        String[] inscricao = new String[2];
         if(rs.next()){
             estado = rs.getString("estado");
+            horario = rs.getString("horario");
+            
+            inscricao[0] = estado;
+            inscricao[1] = horario; 
         }
-
-        return estado;
+        return inscricao;
     }
 
 %>
@@ -82,7 +87,7 @@
             <div class="caixa" style="max-width: 85%; min-width: 80%;">
                 <div id="cabecalho" style="display: flex; justify-content: center; align-items: center;">
                     <div class="caixa" style="width: 100%; text-align: center; border: none; margin-top: 20px; margin-bottom: 20px;">
-                        <h1>Gestão de Inscrições</h1>
+                        <h1>Gestão de Inscrições de <%= curso %></h1>
                     </div>
                 </div>
 
@@ -102,20 +107,37 @@
                                 <th>Nome</th>
                                 <th>Username</th>
                                 <th>Data Nascimento</th>
-                                <th>Nivel</th>
+                                <th>Horario</th>
                                 <th>Inscrever</th>
                                 <th>Validar</th>
                                 <th>Eliminar</th>
                             </tr>
                             <%
                                 while (rs.next()) {
-                                    String estadoInscricao = getInscricao(rs.getString("username"), curso, conn);
+                                    String[] inscricao = new String[2];
+                                    inscricao = getInscricao(rs.getString("username"), curso, conn);
+                                    String estadoInscricao =inscricao[0];
+                                    String horario =inscricao[1];
                             %>
                             <tr>
                                 <td style='width: 18%'><%= rs.getString("nome") %></td>
                                 <td style='width: 18%'><%= rs.getString("username") %></td>
                                 <td style='width: 18%'><%= rs.getDate("data_nasc") %></td>
-                                <td style='width: 18%'><%= rs.getString("nivel") %></td>
+                                
+
+                                <%
+                                    //coluna horario
+                                    if (horario != null) {
+                                %>
+                                <td style='width: 18%'><%= horario %> <a style='margin: 5px' href='editar_inscricao.jsp?utilizador=<%= rs.getString("username") %>&acao=alterar_horario&curso=<%= curso %>&horario=<%= horario %>'><img src='alterar.png' alt='Alterar Horario' style='width:28px'></a></td>
+                                <%
+                                    }
+                                    else{
+                                %>
+                                    <td style='width: 18%'></td>
+                                <%
+                                    }
+                                %>
 
 
                                 <%
@@ -133,7 +155,6 @@
                                 %>
 
 
-
                                 <%
                                     //coluna validar
                                     if (estadoInscricao != null && estadoInscricao.equals("pendente")) {
@@ -149,7 +170,6 @@
                                 <%
                                     }
                                 %>
-
 
 
                                 <%

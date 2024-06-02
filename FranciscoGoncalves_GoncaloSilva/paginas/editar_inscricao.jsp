@@ -25,9 +25,13 @@
         sql = "DELETE FROM inscricao WHERE username = '" + username + "' AND nome = '" + nome + "'";
     } 
     else if ("validar".equals(acao)) {
-        
         sql = "UPDATE inscricao SET estado = 'aceite' WHERE nome = '" + nome + "' AND username = '"+ username +"';";
-        
+    }
+    else if ("alterar_horario".equals(acao) && horario.equals("Noturno")) {
+        sql = "UPDATE inscricao SET horario = 'Diurno' WHERE nome = '" + nome + "' AND username = '"+ username +"';";
+    }
+    else if ("alterar_horario".equals(acao) && horario.equals("Diurno")) {
+        sql = "UPDATE inscricao SET horario = 'Noturno' WHERE nome = '" + nome + "' AND username = '"+ username +"';";
     }
     else {
         response.sendRedirect("int_erro.html");
@@ -41,9 +45,30 @@
         stmt = conn.createStatement();
         int retval = stmt.executeUpdate(sql);
         
-        if (retval == 1) {
+        if (retval == 1 && acao.equals("inscrever")) {
             out.print("<script>");
             out.print("if(confirm('Inscrito com sucesso!')){");
+            out.print("window.location.href = 'gerir_inscricoes_adm.jsp?nome=" + nome + "';");
+            out.print("}");
+            out.print("</script>");
+        }
+        else if(retval == 1 && "eliminar".equals(acao)){
+            out.print("<script>");
+            out.print("if(confirm('Inscrição eliminada com sucesso!')){");
+            out.print("window.location.href = 'gerir_inscricoes_adm.jsp?nome=" + nome + "';");
+            out.print("}");
+            out.print("</script>");
+        }
+        else if(retval == 1 && "validar".equals(acao)){
+            out.print("<script>");
+            out.print("if(confirm('Inscrição validada!')){");
+            out.print("window.location.href = 'gerir_inscricoes_adm.jsp?nome=" + nome + "';");
+            out.print("}");
+            out.print("</script>");
+        }
+        else if(retval == 1 && "alterar_horario".equals(acao)){
+            out.print("<script>");
+            out.print("if(confirm('Horario alterado!')){");
             out.print("window.location.href = 'gerir_inscricoes_adm.jsp?nome=" + nome + "';");
             out.print("}");
             out.print("</script>");

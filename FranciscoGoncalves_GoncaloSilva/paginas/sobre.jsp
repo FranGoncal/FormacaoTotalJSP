@@ -85,6 +85,8 @@
             <p>Seja você um estudante ávido por conhecimento ou uma empresa em busca de aprimoramento profissional para a sua equipa, temos tudo o que você precisa para alcançar os seus objetivos.</p>
             <p>Junte-se a nós e embarque nesta jornada emocionante de aprendizado e crescimento!</p>
             <br>
+            <p>Horario: Diurno/Noturno</p>
+            <p>Preço: 9.99€/mês</p>
             <p>Morada: R. Poço do Moleiro, Castelo Branco </p>
         </div>
     </div>
