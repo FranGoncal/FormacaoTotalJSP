@@ -60,17 +60,20 @@
                             }
                         </script>
 <%
-                    } else {
+                    } 
+                    else {
                         out.println("<script>alert('Algo correu mal! :(');</script>");
                     }
-                } else {
+                } 
+                else {
                     out.println("<script>alert('Esse nome de utilizador já existe! :(');</script>");
                 }
             } catch (Exception e) {
                 out.println("<script>alert('Algo correu mal! :(');</script>");
                 e.printStackTrace();
             }
-        } else {
+        } 
+        else {
             out.println("<script>alert('As palavras-passes não coincidem! :(');</script>");
         }
     }

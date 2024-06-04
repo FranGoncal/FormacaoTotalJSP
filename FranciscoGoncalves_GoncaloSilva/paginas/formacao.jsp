@@ -56,8 +56,6 @@
         //Para evitar desformatação de caracteres especiais para dentro da BD
         criterio = new String(criterio.getBytes("ISO-8859-1"), "UTF-8");
         descricao = new String(descricao.getBytes("ISO-8859-1"), "UTF-8");
-        //nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
-
 
         if (nVagasValido(Integer.parseInt(vagas))) {
             sql = "UPDATE formacao SET num_maximo = ?, descricao = ?, data_fecho = ?, criterio_selecao = ? WHERE nome = ?";

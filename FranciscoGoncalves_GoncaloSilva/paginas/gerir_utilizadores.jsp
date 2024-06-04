@@ -76,11 +76,11 @@
                 <div style="display: flex; justify-content: center">
                     <center>
                         <%
-                            Statement stmt = null;
+                            PreparedStatement ps =null;
                             try {
-                                stmt = conn.createStatement();
                                 String sql = "SELECT * FROM utilizador ORDER BY nivel ASC";
-                                ResultSet rs = stmt.executeQuery(sql);
+                                ps = conn.prepareStatement(sql);
+                                ResultSet rs = ps.executeQuery();
                         %>
                         <table border='1' style='text-align:center; width: 1200px;'>
                             <tr>

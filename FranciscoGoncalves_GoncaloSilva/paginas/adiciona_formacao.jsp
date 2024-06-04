@@ -1,12 +1,14 @@
 <%@ include file="../basedados/basedados.h" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
 
 <%!
     boolean formacaoValida(String nome, Connection conn) throws SQLException {
         String sql = "SELECT * FROM formacao WHERE nome = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, nome);
-        ResultSet rs = pstmt.executeQuery();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, nome);
+        ResultSet rs = ps.executeQuery();
         //retorna se a consulta !(encontrou formacao)
         return !rs.next();
     }
@@ -32,7 +34,7 @@
 
         if(formacaoValida(nome, conn) && nVagasValido(vagas)) {
             String sql = "INSERT INTO formacao (nome, num_maximo, esta_fechada, criterio_selecao, data_fecho, username, descricao) VALUES (?, ?, false, ?, ?, ?, ?)";
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 
                 //Para evitar desformatação de caracteres especiais para dentro da BD
                 nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
@@ -40,14 +42,14 @@
                 username = new String(username.getBytes("ISO-8859-1"), "UTF-8");
                 descricao = new String(descricao.getBytes("ISO-8859-1"), "UTF-8");
 
-                pstmt.setString(1, nome);
-                pstmt.setInt(2, vagas);
-                pstmt.setString(3, criterioSelecao);
-                pstmt.setString(4, dataFecho);
-                pstmt.setString(5, username);
-                pstmt.setString(6, descricao);
+                ps.setString(1, nome);
+                ps.setInt(2, vagas);
+                ps.setString(3, criterioSelecao);
+                ps.setString(4, dataFecho);
+                ps.setString(5, username);
+                ps.setString(6, descricao);
 
-                int affectedRows = pstmt.executeUpdate();
+                int affectedRows = ps.executeUpdate();
 
                 if(affectedRows == 1) {
                     out.println("<script>");

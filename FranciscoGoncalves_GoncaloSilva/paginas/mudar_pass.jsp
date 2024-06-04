@@ -35,7 +35,6 @@
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                response.getWriter().println("Erro ao acessar o banco de dados.");
             } 
         } else {
             out.println("<script>");
