@@ -27,8 +27,8 @@
     String p_confirmar = request.getParameter("confirmar_senha") != null ? request.getParameter("confirmar_senha") : "";
   
     if(request.getParameter("submit") != null) {
+        //se as passwords sao iguais
         if(p_confirmar.equals(password)){
-            
             if(usernameValido(username,conn)){
                 String sql = "INSERT INTO utilizador (username, palavra_passe, nome, data_nasc, nivel) VALUES (?,md5(?),?,?,?)";
                 PreparedStatement ps = conn.prepareStatement(sql);

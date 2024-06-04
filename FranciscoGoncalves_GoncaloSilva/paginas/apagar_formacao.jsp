@@ -36,7 +36,8 @@
             out.println("window.location.href = 'gestao_formacoes.jsp';");
             out.println("}");
             out.println("</script>");
-        } else {
+        } 
+        else {
             out.println("<script>");
             out.println("if(confirm('Apagado sem sucesso! :(')){");
             out.println("window.location.href = 'gestao_formacoes.jsp';");

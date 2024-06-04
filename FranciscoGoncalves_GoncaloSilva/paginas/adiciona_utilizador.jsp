@@ -21,6 +21,7 @@
         response.sendRedirect("logout.jsp");
     }
 
+    //se ele clicou em criar
     if (request.getParameter("submit") != null) {
         String data_nasc = request.getParameter("data_nasc");
         String nome = request.getParameter("nome");
@@ -60,11 +61,11 @@
                             }
                         </script>
 <%
-                    } 
+                    }
                     else {
                         out.println("<script>alert('Algo correu mal! :(');</script>");
                     }
-                } 
+                }
                 else {
                     out.println("<script>alert('Esse nome de utilizador já existe! :(');</script>");
                 }
@@ -72,7 +73,7 @@
                 out.println("<script>alert('Algo correu mal! :(');</script>");
                 e.printStackTrace();
             }
-        } 
+        }
         else {
             out.println("<script>alert('As palavras-passes não coincidem! :(');</script>");
         }

@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
 <%
-
     // Confirmação de nível
     String nivel = (String) session.getAttribute("nivel");
     if (nivel == null || !nivel.equals("admin")) {
@@ -64,7 +63,8 @@
             <%
                 if ("aluno".equals(session.getAttribute("nivel"))) {
                     out.print("<a class='navbar-brand' href='pagina_inicial.jsp'>Formação Total</a>");
-                } else {
+                }
+                else {
                     out.print("<a class='navbar-brand' href='pagina_inicial_adm.jsp'>Formação Total</a>");
                 }
             %>
@@ -76,7 +76,8 @@
                     <%
                         if (session.getAttribute("username") != null) {
                             out.print("<li class='nav-item'><a class='nav-link' aria-current='page' href='logout.jsp'>Terminar Sessão</a></li>");
-                        } else {
+                        }
+                        else {
                             out.print("<li class='nav-item'><a class='nav-link' aria-current='page' href='iniciar_sessao.jsp'>Iniciar Sessão</a></li>");
                             out.print("<li class='nav-item'><a class='nav-link' aria-current='page' href='criar_conta.jsp'>Criar Conta</a></li>");
                         }

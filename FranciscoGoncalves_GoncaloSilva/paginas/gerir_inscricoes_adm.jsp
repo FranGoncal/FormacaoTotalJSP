@@ -92,16 +92,14 @@
                     </div>
                 </div>
 
-                
-
                 <div style="display: flex; justify-content: center">
                     <center>
                         <%
-                            Statement stmt = null;
+                            PreparedStatement ps = null;
                             try {
-                                stmt = conn.createStatement();
                                 String sql = "SELECT * FROM utilizador ORDER BY nivel ASC";
-                                ResultSet rs = stmt.executeQuery(sql);
+                                ps = conn.prepareStatement(sql);
+                                ResultSet rs = ps.executeQuery();
                         %>
                         <table border='1' style='text-align:center; width: 1200px;'>
                             <tr>
@@ -125,7 +123,6 @@
                                 <td style='width: 18%'><%= rs.getString("username") %></td>
                                 <td style='width: 18%'><%= rs.getDate("data_nasc") %></td>
                                 
-
                                 <%
                                     //coluna horario
                                     if (horario != null) {
@@ -185,19 +182,11 @@
                                 %>
 
                             </tr>
-                            <%
+                        <%
                                 }
-                                rs.close();
-                                stmt.close();
                             } catch (Exception e) {
                                 e.printStackTrace();
-                            } finally {
-                                try {
-                                    if (stmt != null) stmt.close();
-                                } catch (SQLException se) {
-                                    se.printStackTrace();
-                                }
-                            }
+                            } 
                         %>
                         </table>
                         <br/>

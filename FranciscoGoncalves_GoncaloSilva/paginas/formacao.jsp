@@ -39,7 +39,8 @@
             data_fecho = result.getString("data_fecho");
             responsavel = result.getString("username");
             descricao = result.getString("descricao");
-        } else {
+        }
+        else {
             out.println("Nenhum utilizador encontrado!");
             return;
         }
@@ -74,7 +75,8 @@
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } else {
+        } 
+        else {
             out.println("<script>alert('Número de vagas inválido!');</script>");
         }
     }    
@@ -110,7 +112,8 @@
                     <%
                         if (session.getAttribute("username") != null) {
                             out.print("<li class='nav-item'><a class='nav-link' aria-current='page' href='logout.jsp'>Terminar Sessão</a></li>");
-                        } else {
+                        }
+                        else {
                             out.print("<li class='nav-item'><a class='nav-link' aria-current='page' href='iniciar_sessao.jsp'>Iniciar Sessão</a></li>");
                             out.print("<li class='nav-item'><a class='nav-link' aria-current='page' href='criar_conta.jsp'>Criar Conta</a></li>");
                         }
@@ -167,7 +170,8 @@
 
                             if (data_fecho.compareTo(new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date())) < 0) {
                                 out.print("<div style='flex: 1;text-align: center; padding:10px;'><a href='fechar_formacao.jsp?nome=" + nome + "&criterio=" + criterio + "&vagas=" + vagas + "'><button class='botao' name='fechar'>Fechar Curso</button></a></div>");//style='margin-left: 100px;'
-                            } else {
+                            } 
+                            else {
                                 out.print("<div style='flex: 1;text-align: center; padding:10px;'><button class='botao_off' type='submit' onclick=\"alert('A Data limite ainda não passou')\">Fechar Curso</button></div>");
                             }
 
@@ -180,7 +184,8 @@
                         </div> <!---->
                     </div>
                 <%
-                    } else {
+                    } 
+                    else {
                 %>
                     <div id="direita" style="width: 400px; max-width: 450px;padding-top: 60px;padding-bottom: 60px; padding-left: 60px;text-align: left;margin: 6%;">
                         <div>
@@ -203,7 +208,8 @@
                         </tr>
                         <%
                             sql = "SELECT u.username, u.nome, u.data_nasc FROM utilizador u JOIN inscricao i ON u.username = i.username JOIN formacao f ON i.nome = f.nome WHERE f.nome = ? AND i.estado = 'aceite'";
-                            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                            try {
+                                PreparedStatement ps = conn.prepareStatement(sql);
                                 ps.setString(1, nome);
                                 ResultSet rs = ps.executeQuery();
                                 while (rs.next()) {
@@ -221,7 +227,6 @@
                     </div>
                     </div>
                     <br>
-                    
                 <%
                     }
                 %>

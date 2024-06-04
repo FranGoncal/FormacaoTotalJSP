@@ -29,7 +29,8 @@
                     <a class="nav-link" aria-current="page" href="logout.jsp">Terminar Sessão</a>
                 </li>
                 <% 
-                    } else { // No caso de nao ter iniciado sessao
+                    } 
+                    else { // No caso de nao ter iniciado sessao
                 %>
                 <!-- Mostra as opcoes da navbar iniciar sessao e criar conta -->
                 <li class="nav-item">

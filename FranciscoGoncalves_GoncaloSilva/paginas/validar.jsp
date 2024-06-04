@@ -24,7 +24,8 @@
 
         if (rowsAffected > 0) {
             response.sendRedirect("gerir_utilizadores.jsp");
-        } else {
+        } 
+        else {
             out.println("<script>alert('Ocorreu um erro :(!');</script>");
         }
     } catch (SQLException e) {

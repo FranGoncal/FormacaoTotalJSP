@@ -23,7 +23,8 @@
         if (rs.next()) {
             nome = rs.getString("nome");
             data_nasc = rs.getString("data_nasc");
-        } else {
+        } 
+        else {
             out.println("<script>alert('Nenhum utilizador encontrado!');</script>");
             return;
         }
@@ -45,7 +46,8 @@
             if (ps.executeUpdate() > 0) {
                 // out.println("Dados atualizados com sucesso!");
                 out.println("<script>alert('Editado com sucesso!');</script>");
-            } else {
+            }
+            else {
                 // out.println("Erro ao atualizar os dados!");
                 out.println("<script>alert('Editado sem sucesso :(!');</script>");
             }
@@ -74,7 +76,10 @@
             if ("aluno".equals(session.getAttribute("nivel"))) {
         %>
             <a class="navbar-brand" href="pagina_inicial.jsp">Formação Total</a>
-        <% } else { %>
+        <% 
+            } 
+            else { 
+        %>
             <a class="navbar-brand" href="pagina_inicial_adm.jsp">Formação Total</a>
         <% } %>
         
@@ -91,7 +96,8 @@
                     <a class="nav-link" aria-current="page" href="logout.jsp">Terminar Sessão</a>
                 </li>
                 <% 
-                    } else {
+                    } 
+                    else {
                 %>
                 <!-- Mostra as opções da navbar iniciar sessão e criar conta -->
                 <li class="nav-item">

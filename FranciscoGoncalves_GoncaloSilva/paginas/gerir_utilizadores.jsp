@@ -38,7 +38,8 @@
                                 <a class="nav-link" aria-current="page" href="logout.jsp">Terminar Sessão</a>
                             </li>
                         <%
-                            } else {
+                            } 
+                            else {
                         %>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="iniciar_sessao.jsp">Iniciar Sessão</a>
@@ -117,7 +118,7 @@
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        %>
+                            %>
                         </table>
                         <br/>
                     </center>

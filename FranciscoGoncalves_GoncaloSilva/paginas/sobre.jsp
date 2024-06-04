@@ -23,7 +23,8 @@
         <!-- Se o nível for aluno, redireciona para a página inicial do aluno -->
         <a class="navbar-brand" href="pagina_inicial.jsp">Formação Total</a>
         <% 
-            } else {
+            } 
+            else {
         %>
         <!-- Caso contrário, redireciona para a página inicial do administrador -->
         <a class="navbar-brand" href="pagina_inicial_adm.jsp">Formação Total</a>
@@ -43,7 +44,8 @@
                     <a class="nav-link" aria-current="page" href="logout.jsp">Terminar Sessão</a>
                 </li>
                 <% 
-                    } else {// No caso de não ter iniciado sessao
+                    } 
+                    else {// No caso de não ter iniciado sessao
                 %>
                 <!-- Mostra as opções da navbar iniciar sessao e criar conta -->
                 <li class="nav-item">

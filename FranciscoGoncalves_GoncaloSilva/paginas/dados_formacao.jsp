@@ -38,7 +38,8 @@
             data_fecho = rs.getString("data_fecho");
             responsavel = rs.getString("username");
             descricao = rs.getString("descricao");
-        } else {
+        } 
+        else {
             out.println("Nenhuma formação encontrada!");
             return;
         }
@@ -102,7 +103,7 @@
             <div style="min-height: 500px;display: flex;">
                 <%
                     String estadoFormacao = "Aberta";
-                    if ("1".equals(esta_fechada)) {
+                    if ("1".equals(esta_fechada)) { //TODO
                         estadoFormacao = "Fechada";
                     }
 

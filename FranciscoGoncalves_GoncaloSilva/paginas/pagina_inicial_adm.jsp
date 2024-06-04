@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
-    
     String nivel = (String) session.getAttribute("nivel");
     if (nivel == null || !(nivel.equals("docente") || nivel.equals("admin"))) {
         response.sendRedirect("logout.jsp");
@@ -38,7 +37,8 @@
                     <a class="nav-link" aria-current="page" href="logout.jsp">Terminar Sessão</a>
                 </li>
                 <% 
-                    } else {// No caso de não ter iniciado sessão
+                    } 
+                    else {// No caso de não ter iniciado sessão
                 %>
                 <!-- Mostra as opções da navbar iniciar sessão e criar conta -->
                 <li class="nav-item">
@@ -118,7 +118,8 @@
         </div>
     </div>
     <% 
-        } else {
+        } 
+        else {
             response.sendRedirect("logout.jsp");
         }
     %>

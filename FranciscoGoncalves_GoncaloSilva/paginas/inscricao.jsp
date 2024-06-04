@@ -58,7 +58,7 @@
             out.print("window.location.href = 'dados_formacao.jsp?nome="+nome+"'");
             out.print("}");
             out.print("</script>");
-        }   
+        }
         //caso de alterar o horario
         else if(retval == 1 && valor.equals("editar")){
             out.print("<script>");

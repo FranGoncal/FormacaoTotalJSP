@@ -53,7 +53,8 @@
                         if (session.getAttribute("username") != null) {
                             //Mostra a opcao de terminar sessao
                             out.println("<li class='nav-item'><a class='nav-link' aria-current='page' href='logout.jsp'>Terminar Sessão</a></li>");
-                        } else {
+                        } 
+                        else {
                             //Mostra as opcoes da navbar iniciar sessao e criar conta
                             out.println("<li class='nav-item'><a class='nav-link' aria-current='page' href='iniciar_sessao.jsp'>Iniciar Sessão</a></li>");
                             out.println("<li class='nav-item'><a class='nav-link' aria-current='page' href='criar_conta.jsp'>Criar Conta</a></li>");
@@ -82,7 +83,8 @@
                         <%
                             if (request.getParameter("option") == null) {
                                 out.println("<input type='checkbox' name='option' >");
-                            } else {
+                            } 
+                            else {
                                 out.println("<input type='checkbox' name='option' checked >");
                             }
                         %>
@@ -103,16 +105,20 @@
                         try {
 
                             String sql = "";
-                            String searchNome = request.getParameter("nome");
+                            String nomePesquisa = request.getParameter("nome");
+                            //Se o parametro option (as minhas inscricoes) retorna diferente de null então true
                             boolean optionChecked = request.getParameter("option") != null;
+                            //Se o parametro submit (pesquisar) retorna diferente de null então true
                             boolean searchSubmitted = request.getParameter("submit") != null;
 
                             if (!searchSubmitted) {
                                 sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax FROM formacao f LEFT JOIN inscricao i ON f.nome = i.nome AND i.estado='aceite' GROUP BY f.nome";
-                            } else if (optionChecked) {
-                                sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax FROM formacao f LEFT JOIN inscricao i ON f.nome = i.nome WHERE f.nome LIKE '%" + searchNome + "%' AND i.username = '" + nome + "' AND (i.estado='aceite' OR i.estado='pendente')";
-                            } else {
-                                sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax FROM formacao f LEFT JOIN inscricao i ON f.nome = i.nome WHERE f.nome LIKE '%" + searchNome + "%' GROUP BY f.nome, f.num_maximo";
+                            } 
+                            else if (optionChecked) {
+                                sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax FROM formacao f LEFT JOIN inscricao i ON f.nome = i.nome WHERE f.nome LIKE '%" + nomePesquisa + "%' AND i.username = '" + nome + "' AND (i.estado='aceite' OR i.estado='pendente')";
+                            } 
+                            else {
+                                sql = "SELECT f.nome AS nome, f.data_fecho AS data_fecho, f.criterio_selecao AS criterio_selecao, f.esta_fechada AS esta_fechada, f.num_maximo AS numMax FROM formacao f LEFT JOIN inscricao i ON f.nome = i.nome WHERE f.nome LIKE '%" + nomePesquisa + "%' GROUP BY f.nome, f.num_maximo";
                             }
                             
                             ps = conn.prepareStatement(sql);
@@ -138,9 +144,11 @@
                                 String inscricaoEstado = estadoInscricao(nomeFormacao, conn, nome);
                                 if ("aceite".equals(inscricaoEstado)) {
                                     out.println("<td style='width: 20%'>Aceite</td>");
-                                } else if ("pendente".equals(inscricaoEstado)) {
+                                } 
+                                else if ("pendente".equals(inscricaoEstado)) {
                                     out.println("<td style='width: 20%'>Pendente</td>");
-                                } else {
+                                } 
+                                else {
                                     out.println("<td style='width: 20%'></td>");
                                 }
                                 out.println("</tr>");
@@ -148,9 +156,7 @@
                             out.println("</table><br/>");
                         } catch (Exception e) {
                             e.printStackTrace();
-                        }
-
-                        
+                        }     
                     %>
                 </center>
             </div>

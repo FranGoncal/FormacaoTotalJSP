@@ -32,7 +32,8 @@
             nome = rs.getString("nome");
             data_nasc = rs.getString("data_nasc");
             userNivel = rs.getString("nivel");
-        } else {
+        } 
+        else {
             out.println("<script>alert('Nenhum utilizador encontrado!');</script>");
             response.sendRedirect("gerir_utilizadores.jsp");
         }
@@ -62,7 +63,8 @@
 
             if (rowsAffected > 0) {
                 out.println("<script>alert('Atualizado com sucesso!');</script>");
-            } else {
+            } 
+            else {
                 out.println("<script>alert('Atualizado sem sucesso :(!');</script>");
             }
         } catch (Exception e) {
