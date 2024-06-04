@@ -12,7 +12,7 @@
     String utilizador = request.getParameter("utilizador");
     if (utilizador == null) {
         out.println("<script>alert('Nenhum utilizador especificado!');</script>");
-        request.sendRedirect("gerir_utilizadores.jsp");
+        response.sendRedirect("gerir_utilizadores.jsp");
     }
 
     PreparedStatement ps = null;
@@ -34,7 +34,7 @@
             userNivel = rs.getString("nivel");
         } else {
             out.println("<script>alert('Nenhum utilizador encontrado!');</script>");
-        request.sendRedirect("gerir_utilizadores.jsp");
+            response.sendRedirect("gerir_utilizadores.jsp");
         }
 
     } catch (Exception e) {
