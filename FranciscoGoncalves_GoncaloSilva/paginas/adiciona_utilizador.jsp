@@ -21,11 +21,6 @@
         response.sendRedirect("logout.jsp");
     }
 
-    boolean userCreated = false;        //TODOOOOOOOOOOOO REVER VARIAVEIS
-    boolean errorOccurred = false;      //TODOOOOOOOOOOOO REVER VARIAVEIS
-    boolean usernameExists = false;     //TODOOOOOOOOOOOO REVER VARIAVEIS
-    boolean passwordsMismatch = false;  //TODOOOOOOOOOOOO REVER VARIAVEIS
-
     if (request.getParameter("submit") != null) {
         String data_nasc = request.getParameter("data_nasc");
         String nome = request.getParameter("nome");
@@ -58,23 +53,27 @@
                     int rowsAffected = ps.executeUpdate();
 
                     if (rowsAffected == 1) {
-                        userCreated = true;
+%>
+                        <script>
+                            if (confirm('Conta criada com sucesso!')) {
+                                window.location.href = 'adiciona_utilizador.jsp';
+                            }
+                        </script>
+<%
                     } else {
-                        errorOccurred = true;
+                        out.println("<script>alert('Algo correu mal! :(');</script>");
                     }
                 } else {
-                    usernameExists = true;
+                    out.println("<script>alert('Esse nome de utilizador já existe! :(');</script>");
                 }
             } catch (Exception e) {
+                out.println("<script>alert('Algo correu mal! :(');</script>");
                 e.printStackTrace();
-                errorOccurred = true;
             }
         } else {
-            passwordsMismatch = true;
+            out.println("<script>alert('As palavras-passes não coincidem! :(');</script>");
         }
     }
-
-    
 %>
 
 <!DOCTYPE html>
@@ -133,20 +132,7 @@
                             Nivel: <input type="text" name="nivel" style="margin-left: 149px;" required><br><br>
                             <br><br><br><br>
                             <div style="margin-left: 100px;"><button class="botao" name="submit" type="submit">Criar</button></div>
-                        </form>
-                        <% if (userCreated) { %>
-                            <script>
-                                if (confirm('Conta criada com sucesso!')) {
-                                    window.location.href = 'adiciona_utilizador.jsp';
-                                }
-                            </script>
-                        <% } else if (errorOccurred) { %>
-                            <script>alert('Algo correu mal! :(');</script>
-                        <% } else if (usernameExists) { %>
-                            <script>alert('Esse nome de utilizador já existe! :(');</script>
-                        <% } else if (passwordsMismatch) { %>
-                            <script>alert('As palavras-passes não coincidem! :(');</script>
-                        <% } %>
+                        </form>     
                     </div>
                 </div>
             </div>
