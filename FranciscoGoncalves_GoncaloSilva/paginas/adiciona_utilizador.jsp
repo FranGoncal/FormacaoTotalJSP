@@ -6,9 +6,9 @@
 <%!
     boolean usernameValido(String username, Connection conn) throws SQLException {
         String sql = "SELECT * FROM utilizador WHERE username = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, username);
-        ResultSet rs = pstmt.executeQuery();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
 
         //retorna se a consulta !(encontrou utilizador)
         return !rs.next(); 
@@ -36,13 +36,13 @@
 
         if (p_confirmar.equals(password)) {
             
-            PreparedStatement pstmt = null;
+            PreparedStatement ps = null;
             ResultSet rs = null;
 
             try {
                 if (usernameValido(username, conn)) {
                     String sql = "INSERT INTO utilizador (username, palavra_passe, nome, data_nasc, nivel) VALUES (?, MD5(?), ?, ?, ?)";
-                    pstmt = conn.prepareStatement(sql);
+                    ps = conn.prepareStatement(sql);
 
                     //Para evitar desformatação de caracteres especiais para dentro da BD
                     username = new String(username.getBytes("ISO-8859-1"), "UTF-8");
@@ -50,12 +50,12 @@
                     nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
                     userNivel = new String(userNivel.getBytes("ISO-8859-1"), "UTF-8");
 
-                    pstmt.setString(1, username);
-                    pstmt.setString(2, password);
-                    pstmt.setString(3, nome);
-                    pstmt.setString(4, data_nasc);
-                    pstmt.setString(5, userNivel);
-                    int rowsAffected = pstmt.executeUpdate();
+                    ps.setString(1, username);
+                    ps.setString(2, password);
+                    ps.setString(3, nome);
+                    ps.setString(4, data_nasc);
+                    ps.setString(5, userNivel);
+                    int rowsAffected = ps.executeUpdate();
 
                     if (rowsAffected == 1) {
                         userCreated = true;

@@ -74,8 +74,6 @@ INSERT INTO `inscricao` (`username`, `estado`, `nome`, `data_inscricao`, `horari
 ('aluno', 'pendente', 'HTML', '2024-05-06', 'Diurno'),
 ('aluno', 'pendente', 'Java', '2024-05-06', 'Diurno'),
 ('aluno', 'pendente', 'PHP', '2024-05-06', 'Diurno'),
-('aluno', 'pendente', 'PHP2', '2024-05-06', 'Diurno'),
-('aluno', 'pendente', 'PHP3', '2024-05-06', 'Diurno'),
 ('utilizador1', 'pendente', 'Agricultura A', '1999-05-10', 'Diurno'),
 ('utilizador1', 'pendente', 'HTML', '1999-05-10', 'Diurno'),
 ('utilizador1', 'pendente', 'Java', '2024-05-06', 'Diurno'),
