@@ -135,11 +135,11 @@
                         <div style="margin-left: 130px;"><button class="botao" name="submit" type="submit">Atualizar</button></div>
                         <br>
                     </form>
-                    <a href="mudar_pass.jsp?utilizador=<%= utilizador %>"><div style="margin-left: 85px;"><button class="botao" name="fechar">Alterar Palavra-passe</button></div></a>
+                    <div style="margin-left: 85px;"><a href="mudar_pass.jsp?utilizador=<%= utilizador %>"><button class="botao" name="fechar">Alterar Palavra-passe</button></a></div>
                     <br>
                     <%
                         if (!"apagado".equals(userNivel)) {
-                            out.print("<a href='validar.jsp?utilizador=" + utilizador + "&nivel=apagado'><div style='margin-left: 100px;'><button class='botao_vermelho' name='fechar'>Apagar Utilizador</button></div></a>");
+                            out.print("<div style='margin-left: 100px;'><a href='validar.jsp?utilizador=" + utilizador + "&nivel=apagado'><button class='botao_vermelho' name='fechar'>Apagar Utilizador</button></a></div>");
                         }
                     %>
                 </div>     
