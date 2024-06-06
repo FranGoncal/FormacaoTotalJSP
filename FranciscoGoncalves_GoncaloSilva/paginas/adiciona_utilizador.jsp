@@ -133,11 +133,7 @@
                             Palavra-Passe: <input type="password" name="password" style="margin-left: 75px;" required minlength="8"><br><br>
                             Confirmar Palavra-Passe: <input type="password" name="confirmar_senha" style="margin-left: 5px;" required><br><br>
                             Data de Nascimento: <input type="date" name="data_nasc" style="margin-left: 35px;" required><br><br>
-                            
-                            
-                            
                             Nivel: 
-
                             <select id="opcoes" name="nivel" style="margin-left: 35px;" required>
                                 <option value="pendente">Pendente</option>
                                 <option value="aluno">Aluno</option>
@@ -145,9 +141,6 @@
                                 <option value="docente">Docente</option>
                                 <option value="apagado">Apagado</option>
                             </select>
-
-
-
 
                             <br><br><br><br>
                             <div style="margin-left: 100px;"><button class="botao" name="submit" type="submit">Criar</button></div>
