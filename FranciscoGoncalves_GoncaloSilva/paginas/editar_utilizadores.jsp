@@ -131,7 +131,6 @@
                         Nome de Utilizador: <%= utilizador %><br><br>
                         Nome: <input type="text" style="margin-left: 95px;" name="nome" value="<%= nome %>"><br><br>
                         Data de Nascimento: <input type="date" name="data_nasc" value="<%= data_nasc %>"><br><br>
-
                         Nivel: 
                         <select id="opcoes" name="nivel" style="margin-left: 35px;">
                             <option value="pendente" <%= "pendente".equals(userNivel) ? "selected" : "" %>>Pendente</option>
@@ -140,13 +139,6 @@
                             <option value="admin" <%= "admin".equals(userNivel) ? "selected" : "" %>>Admin</option>
                             <option value="apagado" <%= "apagado".equals(userNivel) ? "selected" : "" %>>Apagado</option>
                         </select><br><br>
-
-
-
-
-
-
-
 
                         <div style="margin-left: 130px;"><button class="botao" name="submit" type="submit">Atualizar</button></div>
                         <br>
