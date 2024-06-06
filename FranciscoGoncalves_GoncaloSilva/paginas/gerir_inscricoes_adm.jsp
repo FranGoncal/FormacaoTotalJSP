@@ -97,7 +97,7 @@
                         <%
                             PreparedStatement ps = null;
                             try {
-                                String sql = "SELECT * FROM utilizador ORDER BY nivel ASC";
+                                String sql = "SELECT * FROM utilizador WHERE nivel = 'aluno' ORDER BY nivel ASC";
                                 ps = conn.prepareStatement(sql);
                                 ResultSet rs = ps.executeQuery();
                         %>
@@ -142,7 +142,7 @@
                                     //coluna inscrever
                                     if (estadoInscricao == null) {
                                 %>
-                                <td style='width: 10%'><a href='inscrever.jsp?utilizador=<%= rs.getString("username") %>&curso=<%= curso %>'><img src='formacao.png' alt='editar' style='width:28px'></a></td>
+                                <td style='width: 10%'><a href='inscrever_adm.jsp?utilizador=<%= rs.getString("username") %>&curso=<%= curso %>'><img src='formacao.png' alt='editar' style='width:28px'></a></td>
                                 <%
                                     }
                                     else{
