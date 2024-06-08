@@ -32,14 +32,14 @@
         String criterioSelecao = request.getParameter("criterio");
         String descricao = request.getParameter("descricao");
 
-        if(formacaoValida(nome, conn) && nVagasValido(vagas)) {
+        if(formacaoValida(nome, conn) && nVagasValido(vagas)) {   
             String sql = "INSERT INTO formacao (nome, num_maximo, esta_fechada, criterio_selecao, data_fecho, username, descricao) VALUES (?, ?, false, ?, ?, ?, ?)";
-            try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                
+            try {
+                PreparedStatement ps = conn.prepareStatement(sql);
+
                 //Para evitar desformatação de caracteres especiais para dentro da BD
                 nome = new String(nome.getBytes("ISO-8859-1"), "UTF-8");
                 criterioSelecao = new String(criterioSelecao.getBytes("ISO-8859-1"), "UTF-8");
-                username = new String(username.getBytes("ISO-8859-1"), "UTF-8");
                 descricao = new String(descricao.getBytes("ISO-8859-1"), "UTF-8");
 
                 ps.setString(1, nome);

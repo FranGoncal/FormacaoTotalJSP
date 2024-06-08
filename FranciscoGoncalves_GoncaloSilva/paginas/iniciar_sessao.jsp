@@ -13,6 +13,11 @@
         String sql = null;
         
         try {
+
+            //Para evitar desformatação de caracteres especiais para dentro da BD
+            username = new String(username.getBytes("ISO-8859-1"), "UTF-8");
+            password = new String(password.getBytes("ISO-8859-1"), "UTF-8");
+
             sql = "SELECT nivel FROM utilizador WHERE username = '"+username+"' AND palavra_passe = md5('"+password+"')";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
