@@ -175,7 +175,7 @@
                                     if (estadoInscricao != null) {
                                 %>
                                 <td style='width: 13%'>
-                                    <a style='margin: 5px' href='editar_inscricao.jsp?utilizador=<%= rs.getString("username") %>&acao=eliminar&curso=<%= curso %>'><img src='eliminar.png' alt='validar aluno' style='width:28px'></a>
+                                    <a style='margin: 5px' href='editar_inscricao.jsp?utilizador=<%= rs.getString("username") %>&acao=eliminar&curso=<%= curso %>'><img src='eliminar.png' alt='Eliminar Inscrição' style='width:28px'></a>
                                 </td>
                                 <%
                                     }
