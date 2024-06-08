@@ -106,7 +106,7 @@
             <div style="border-left : 1px solid #999999;width: 50%; padding-top: 60px;padding-bottom: 60px;text-align: center;margin-bottom: 10px;">
                 <a href="gestao_formacoes.jsp" style="cursor: pointer;">
                     <div><img src="livros.png" style="width: 250px; height:250px;margin-bottom: 24px;" alt="Search Icon" class="search-icon"></div>
-                    <div><button class="botao" name ="submit" type="submit">Gerir Inscrições de Cursos</button></div>
+                    <div><button class="botao" name ="submit" type="submit">Gerir Cursos de Formação</button></div>
                 </a>
             </div>
             <div style="border-left : 1px solid #999999;width: 50%; padding-top: 60px;padding-bottom: 60px;text-align: center;margin-bottom: 10px;">
