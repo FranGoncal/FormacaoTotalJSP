@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%
+    String nivel = (String) session.getAttribute("nivel");
+    if ( !(nivel == null || nivel.equals("aluno"))) {
+        response.sendRedirect("logout.jsp");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -22,7 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <% 
-                    if(session.getAttribute("username") != null) { // No caso de ter sessao iniciada
+                    if(session.getAttribute("nivel") != null) { // No caso de ter sessao iniciada
                 %>
                 <!-- Mostra a opcao de terminar sessao -->
                 <li class="nav-item">
@@ -57,7 +65,7 @@
 
         <%
             //se não houver sessao iniciada
-            if(session.getAttribute("username") == null){ 
+            if(session.getAttribute("nivel") == null){ 
         %>
         <br>
         <center>
@@ -69,15 +77,15 @@
                 <img src="forma.png" alt="" style="max-width: 85%; height: auto;">
             </div>
             <div class="conteudo2">
-                <p>Aqui você pode encontrar cursos incríveis para desenvolver as suas habilidades.
-                    <br>Selecione entre uma variedade de cursos em diferentes áreas, incluindo tecnologia, negócios, arte e muito mais e inscreva-se já!</p>
+                <p>Aqui podes encontrar cursos incríveis para desenvolver as tuas habilidades.
+                    <br>Seleciona entre uma variedade de cursos em diferentes áreas, incluindo tecnologia, negócios, arte e muito mais e inscreva-te já!</p>
                 <p>Estamos comprometidos em fornecer a melhor experiência, validando todos os docentes para garantir um ensino de qualidade!</p>
-                <p>De que está à espera? </p>
+                <p>De que estás à espera? </p>
             </div>
         </div>
         <div class="linha">
             <div class="conteudo2">
-                <p>Sabia que a inscrição em cursos online leva a 70% do sucesso dos jovens de hoje em dia?
+                <p>Sabias que as inscrições em cursos online levam a 70% do sucesso dos jovens de hoje em dia?
                     <br>Sim, isso mesmo! E isso é devido ao facto dos cursos estarem em constante melhoria! 
                     Daí o sucesso dos estudantes que usam este tipo de método de aprendizagem. </p>
             </div>

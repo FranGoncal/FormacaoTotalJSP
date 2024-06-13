@@ -83,8 +83,8 @@
                 <li>Saúde e Bem-Estar</li>
                 <li>Artes e Criatividade</li>
             </ul>
-            <p>Nossa missão é capacitar indivíduos e empresas com as habilidades necessárias para prosperar em um mundo em constante mudança.</p>
-            <p>Seja você um estudante ávido por conhecimento ou uma empresa em busca de aprimoramento profissional para a sua equipa, temos tudo o que você precisa para alcançar os seus objetivos.</p>
+            <p>Nossa missão é capacitar indivíduos e empresas com as habilidades necessárias para prosperar num mundo em constante mudança.</p>
+            <p>Seja um estudante ávido por conhecimento ou uma empresa em busca de aprimoramento profissional para a sua equipa, temos tudo o que precisa para alcançar os seus objetivos.</p>
             <p>Junte-se a nós e embarque nesta jornada emocionante de aprendizado e crescimento!</p>
             <br>
             <p>Horario: Diurno/Noturno</p>
